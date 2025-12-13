@@ -1,0 +1,353 @@
+  body {
+      font-family: 'Fredoka', sans-serif;
+      margin: 0;
+      background: #fff9f2;
+      color: #333;
+    }
+
+    /* Header */
+    .food-header {
+      background: linear-gradient(135deg, #ffe4c4, #ffccb3);
+      border-bottom-left-radius: 60px;
+      border-bottom-right-radius: 60px;
+      box-shadow: 10px 15px 9px rgba(0, 0, 0, 0.15);
+      position: relative;
+      padding: 15px 15px ;
+     
+    }
+
+    .food-header-content {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .food-dog-img {
+      width: 300px;
+      height: auto;
+    }
+
+    .food-text {
+      text-align: center;
+    }
+
+    .food-text h1 {
+      font-size: 2.8rem;
+      color: #4e148c;
+      margin-bottom: 10px;
+    }
+
+    .food-text p {
+      font-size: 1.15rem;
+      color: #5a4c4c;
+      font-weight: 500;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    /* Breed Search Section */
+    .breed-food-search {
+      text-align: center;
+      padding: 40px 20px;
+      background: #fffaf3;
+    }
+
+    #breedSearch {
+      padding: 12px;
+      width: 80%;
+      max-width: 300px;
+      border-radius: 10px;
+      border: 2px solid #ff9f4d;
+      font-size: 1rem;
+      margin-bottom: 20px;
+    }
+
+    .breed-result-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 700px;
+      margin: 0 auto;
+      text-align: center;
+      margin-top: 2rem;
+    }
+
+    .puppy-top {
+      width: 190px;
+      position: absolute;
+      top: -35px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      pointer-events: none;
+    }
+
+    .food-result-box {
+      background: #f9f6ec;
+      border-radius: 20px;
+      box-shadow: 0 15px 20px rgba(0, 0, 0, 0.08);
+      padding: 30px;
+      max-height: 500px;
+      overflow-y: auto;
+      font-family: 'Segoe UI', sans-serif;
+      position: relative;
+      margin-top: 40px;
+    }
+
+    .food-result-box::before {
+      content: "🐾";
+      position: absolute;
+      font-size: 4rem;
+      opacity: 0.06;
+      top: 10px;
+      right: 20px;
+      transform: rotate(-10deg);
+    }
+
+    .food-result-box h3 {
+      font-size: 1.3rem;
+      color: #4e148c;
+      margin-bottom: 10px;
+    }
+
+    .food-result-box p {
+      font-size: 1rem;
+      color: #5a4c4c;
+      margin: 8px 0;
+    }
+
+    #backButton {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background: #ff9f4d;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    #backButton:hover {
+      background: #ff7a00;
+    }
+
+    /* Cards */
+    .food-section {
+      max-width: 1100px;
+      margin: 50px auto;
+      padding: 0 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 30px;
+    }
+
+    .food-card {
+      background: #fff;
+      border-radius: 20px 20px 20px 0;
+      box-shadow: 10px 15px 9px rgba(0, 0, 0, 0.1);
+      padding: 24px;
+      text-align: center;
+      transition: transform 0.3s ease;
+      position: relative;
+    }
+
+    .food-card::after {
+      content: "🐾";
+      position: absolute;
+      bottom: 12px;
+      right: 12px;
+      font-size: 1.2rem;
+      opacity: 0.3;
+    }
+
+    .food-card:hover {
+      transform: translateY(-6px);
+    }
+
+    .food-card h3 {
+      font-size: 1.2rem;
+      color: #ff7a00;
+      margin: 10px 0;
+    }
+
+    .food-card p {
+      font-size: 0.95rem;
+      color: #444;
+    }
+
+    .food-card .icon {
+      font-size: 2.2rem;
+      margin-bottom: 10px;
+    }
+    footer{
+        border: none;
+        background: transparent;
+    }
+
+    /* Footer */
+    .footer-note {
+      text-align: center;
+      padding: 40px 20px;
+      color: #888;
+      font-size: 0.9rem;
+    }
+
+    .footer-note p:last-child {
+      font-size: 1.1rem;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 600px) {
+      .food-text h1 {
+        font-size: 1.5rem;
+      }
+      .food-text p{
+        font-size: 1rem;
+      }
+   
+      .food-card p {
+        font-size: 0.9rem;
+      }
+      .food-result-box h1{
+        font-size: 1rem;
+      }
+      }
+      @media (max-width: 768px) {
+  .food-header-content {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 20px;
+    padding: 20px;
+  }
+
+  .food-dog-img {
+    width: 200px;
+  }
+
+  .food-text h1 {
+    font-size: 2rem;
+  }
+
+  .food-text p {
+    font-size: 1.05rem;
+  }
+
+  .breed-food-search {
+    padding: 30px 10px;
+  }
+
+  #breedSearch {
+    width: 90%;
+    font-size: 0.95rem;
+  }
+
+  .puppy-top {
+    width: 150px;
+    top: -20px;
+  }
+
+  .food-result-box {
+    padding: 20px;
+    margin-top: 50px;
+  }
+
+  .food-result-box h3 {
+    font-size: 1.1rem;
+  }
+
+  .food-result-box p {
+    font-size: 0.95rem;
+  }
+
+  #backButton {
+    width: 100%;
+    font-size: 0.95rem;
+  }
+
+  .food-section {
+    grid-template-columns: 1fr;
+    padding: 0 10px;
+    gap: 20px;
+  }
+
+  .food-card {
+    padding: 20px;
+  }
+
+  .food-card h3 {
+    font-size: 1.1rem;
+  }
+
+  .food-card p {
+    font-size: 0.9rem;
+  }
+
+  .footer-note {
+    font-size: 0.85rem;
+  }
+
+  .footer-note p:last-child {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .food-text h1 {
+    font-size: 1.4rem;
+  }
+
+  .food-text p {
+    font-size: 0.95rem;
+  }
+
+  .food-dog-img {
+    width: 160px;
+  }
+
+  .puppy-top {
+    width: 120px;
+    top: -15px;
+  }
+
+  #breedSearch {
+    max-width: 250px;
+    font-size: 0.9rem;
+  }
+
+  .food-result-box h3 {
+    font-size: 1rem;
+  }
+
+  .food-result-box p {
+    font-size: 0.85rem;
+  }
+
+  .food-card h3 {
+    font-size: 1rem;
+  }
+
+  .food-card p {
+    font-size: 0.85rem;
+  }
+
+  .food-card .icon {
+    font-size: 1.8rem;
+  }
+
+  #backButton {
+    padding: 10px;
+    font-size: 0.9rem;
+  }
+
+  .footer-note {
+    font-size: 0.8rem;
+    padding: 30px 10px;
+  }
+
+  .footer-note p:last-child {
+    font-size: 0.95rem;
+  }
+}
