@@ -19,7 +19,7 @@ export default function HealthGuidePage() {
   const selectedBreed = matchedBreeds.length === 1 ? matchedBreeds[0] : null;
 
   return (
-    <div>
+    <div className="health-guide-page">
 
       {/* HEADER */}
       <header className="health-header">

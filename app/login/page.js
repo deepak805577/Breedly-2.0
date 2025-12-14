@@ -77,7 +77,7 @@ const handleRegister = async (e) => {
 };
 
   return (
-    <div className={`container ${isRegister ? 'active' : ''}`}>
+    <div className={`login-page container ${isRegister ? 'active' : ''}`}>
 
       {/* LOGIN FORM */}
       <div className="form-box login">

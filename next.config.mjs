@@ -1,6 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  /* config options here */
+  experimental: {
+    turbopack: false, // Disable Turbopack to avoid React static flag errors
+  },
 };
 
 export default nextConfig;

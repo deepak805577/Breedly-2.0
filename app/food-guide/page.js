@@ -16,7 +16,7 @@ const matchedBreed = searchTerm
 
 
   return (
-    <div>
+    <div className="food-guide-page">
 
       {/* HEADER */}
       <header className="food-header">

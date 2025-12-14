@@ -11,7 +11,7 @@ export default function TrainingPage() {
   const stopPropagation = (e) => e.stopPropagation();
 
   return (
-    <div>
+    <div className="training-guide-page">
       {/* Hero Header */}
       <header className="hero-header new-hero">
         <img src="/assets/playing.jpg" alt="Dog Playing" className="hero-img" />

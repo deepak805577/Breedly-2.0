@@ -5,24 +5,16 @@ import { useState } from 'react';
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Confetti from 'react-confetti'; // npm install react-confetti
-
 const questions = [
+  // 1. Home & environment
   {
     question: "What type of home do you live in?",
-    tip: "Apartment dwellers may prefer smaller or quiet breeds.",
-    options : [
-  { text: "1BHK", icon: "🏙️" },      // Small apartment / city living
-  { text: "2-3BHK", icon: "🏢" },    // Family-sized apartment / housing complex
-  { text: "House", icon: "🏡" },      // Standalone house with a yard
-  { text: "Bungalow", icon: "🏯" }    // Villa / bungalow style
-]
-  },
-  {
-    question: "Do you have air conditioning?",
-    tip: "Thick-fur breeds like Huskies need a cool environment.",
+    tip: "Apartment dwellers may prefer smaller or quieter breeds.",
     options: [
-      { text: "Yes", icon: "❄️" },
-      { text: "No", icon: "🔥" }
+      { text: "1BHK", icon: "🏙️" },
+      { text: "2-3BHK", icon: "🏢" },
+      { text: "House", icon: "🏡" },
+      { text: "Bungalow", icon: "🏯" }
     ]
   },
   {
@@ -45,26 +37,27 @@ const questions = [
     ]
   },
   {
-    question: "Do you have any children at home?",
+    question: "Do you have air conditioning?",
+    tip: "Thick-fur breeds like Huskies need a cool environment.",
+    options: [
+      { text: "Yes", icon: "❄️" },
+      { text: "No", icon: "🔥" }
+    ]
+  },
+
+  // 2. Household & people
+  {
+    question: "Do you have children at home, and what are their ages?",
     tip: "Kid-friendly breeds are gentler and more patient.",
     options: [
-      { text: "No", icon: "🚫" },
-      { text: "Yes - Ages 0–5", icon: "👶" },
-      { text: "Yes - Ages 6–12", icon: "🧒" },
-      { text: "Yes - Teenagers", icon: "🧑" }
+      { text: "No children", icon: "🚫" },
+      { text: "Ages 0–5", icon: "👶" },
+      { text: "Ages 6–12", icon: "🧒" },
+      { text: "Teenagers 13+", icon: "🧑" }
     ]
   },
   {
-    question: "What are their ages?",
-    tip: "Age matters for energy level & compatibility.",
-    options: [
-      { text: "0–5", icon: "👶" },
-      { text: "6–12", icon: "🧒" },
-      { text: "13+", icon: "🧑" }
-    ]
-  },
-  {
-    question: "Will your dog have kids to snuggle with?",
+    question: "Will your dog interact with children regularly?",
     tip: "Cuddly breeds love being with children.",
     options: [
       { text: "Yes", icon: "❤️" },
@@ -77,9 +70,21 @@ const questions = [
     options: [
       { text: "Yes", icon: "🤧" },
       { text: "No", icon: "😊" },
-      { text: "Not Sure", icon: "❓" }
+      { text: "Not sure", icon: "❓" }
     ]
   },
+  {
+    question: "Do you have other pets at home?",
+    tip: "Some breeds are more sociable with other animals.",
+    options: [
+      { text: "No", icon: "🚫" },
+      { text: "Cats", icon: "🐱" },
+      { text: "Other dogs", icon: "🐕" },
+      { text: "Both", icon: "🐱🐕" }
+    ]
+  },
+
+  // 3. Time & experience
   {
     question: "How much time can you dedicate to your dog daily?",
     tip: "Dogs thrive on attention and routine.",
@@ -87,6 +92,16 @@ const questions = [
       { text: "< 1 hour", icon: "⏳" },
       { text: "1–2 hours", icon: "🕰️" },
       { text: "3+ hours", icon: "⏱️" }
+    ]
+  },
+  {
+    question: "How much daily exercise can you provide?",
+    tip: "Some breeds require long walks or runs daily.",
+    options: [
+      { text: "< 30 mins", icon: "🛋️" },
+      { text: "30–60 mins", icon: "🚶‍♀️" },
+      { text: "1–2 hours", icon: "🏃‍♂️" },
+      { text: "2+ hours", icon: "🏃‍♂️🏃‍♂️" }
     ]
   },
   {
@@ -107,11 +122,13 @@ const questions = [
       { text: "No", icon: "👎" }
     ]
   },
+
+  // 4. Lifestyle & preferences
   {
     question: "What's your activity level?",
     tip: "Dogs need matching energy! Active people = active breeds.",
     options: [
-      { text: "Very Active", icon: "🏃‍♂️" },
+      { text: "Very active", icon: "🏃‍♂️" },
       { text: "Moderate", icon: "🚶‍♀️" },
       { text: "Low", icon: "🛋️" }
     ]
@@ -147,22 +164,33 @@ const questions = [
   },
   {
     question: "How much training are you willing to provide?",
-    tip: "More obedient breeds require less training effort.",
+    tip: "Some breeds are easier to train than others.",
     options: [
       { text: "A lot — I enjoy it", icon: "🧠" },
       { text: "Just the basics", icon: "📘" },
-      { text: "Prefer trained", icon: "🎓" }
+      { text: "Prefer already trained", icon: "🎓" }
     ]
   },
+  {
+    question: "Are you okay with dogs prone to health issues or high maintenance?",
+    tip: "Some breeds need regular vet care or special attention.",
+    options: [
+      { text: "Yes", icon: "💉" },
+      { text: "No", icon: "❌" },
+      { text: "Not sure", icon: "❓" }
+    ]
+  },
+
+  // 5. Dog specifics
   {
     question: "What size of dog do you prefer?",
     tip: "If you live in a smaller space, consider a smaller dog.",
     options: [
-      { text: "7kg & under", icon: "🐶" },
-      { text: "7–14kg", icon: "🐕" },
-      { text: "14–23kg", icon: "🦮" },
-      { text: "23–50kg", icon: "🐕‍🦺" },
-      { text: "50kg+", icon: "🐾" },
+      { text: "Small (7kg & under)", icon: "🐶" },
+      { text: "Medium (7–14kg)", icon: "🐕" },
+      { text: "Medium-Large (14–23kg)", icon: "🦮" },
+      { text: "Large (23–50kg)", icon: "🐕‍🦺" },
+      { text: "Very Large (50kg+)", icon: "🐾" },
       { text: "No preference", icon: "❔" }
     ]
   },
@@ -186,6 +214,8 @@ const questions = [
     ]
   }
 ];
+
+
 export default function BreedSelector() {
   const router = useRouter();
 
@@ -194,6 +224,21 @@ export default function BreedSelector() {
   const [fade, setFade] = useState(true);
   const [finished, setFinished] = useState(false);
   const [progressWidth, setProgressWidth] = useState(0);
+  const [isBouncing, setIsBouncing] = useState(false);
+
+
+useEffect(() => {
+  const newProgress = ((currentQuestion + 1) / questions.length) * 100;
+  const timer = setTimeout(() => setProgressWidth(newProgress), 50);
+  return () => clearTimeout(timer);
+}, [currentQuestion]);
+useEffect(() => {
+  if (currentQuestion === 0) return; // skip initial load
+  setIsBouncing(true);
+  const timer = setTimeout(() => setIsBouncing(false), 500);
+  return () => clearTimeout(timer);
+}, [currentQuestion]);
+
 
 useEffect(() => {
   const newProgress = ((currentQuestion + 1) / questions.length) * 100;
@@ -212,7 +257,7 @@ useEffect(() => {
     setAnswers(updatedAnswers);
 
     // Trigger fade-out
-    
+
     //setFade(false);
 
     setTimeout(() => {
@@ -274,10 +319,16 @@ useEffect(() => {
           ))}
         </div>
 
-        {/* Progress */}
-        <div className="progress-bar">
-          <div className="progress-fill" style={{ width: `${progress}%` }} />
-        </div>
+     <div className="paw-progress">
+  <div className="paw-fill" style={{ width: `${progressWidth}%` }} />
+  <span
+  className={`paw-icon ${isBouncing ? 'bounce' : ''}`}
+  style={{ left: `${progressWidth}%` }}
+>
+  🐾
+</span>
+
+</div>
 
         {/* Navigation */}
         <div className="quiz-nav">
