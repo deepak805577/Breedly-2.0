@@ -236,6 +236,7 @@ const breedProfiles = {
 
 };
 
+
 export default function ResultsPage() {
   const [matches, setMatches] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -250,11 +251,22 @@ export default function ResultsPage() {
       localStorage.getItem('breedlyAnswers') ||
       localStorage.getItem('quizAnswers');
 
-    if (!raw) {
-      setFallbackText('Oops! No quiz answers found. Please take the quiz again.');
+ if (!raw) {
+  const saved = localStorage.getItem('breedlySavedResults');
+
+  if (saved) {
+    try {
+      setMatches(JSON.parse(saved));
       setLoading(false);
       return;
-    }
+    } catch (e) {}
+  }
+
+  setFallbackText('No saved results found. Please take the quiz.');
+  setLoading(false);
+  return;
+}
+
 
     let answers;
     try {
@@ -299,6 +311,11 @@ export default function ResultsPage() {
 
     scored.sort((a, b) => b.percent !== a.percent ? b.percent - a.percent : b.score - a.score);
     setMatches(scored.slice(0, 3));
+    localStorage.setItem(
+  'breedlySavedResults',
+  JSON.stringify(scored.slice(0, 3))
+);
+
     setLoading(false);
     setTimeout(() => setAnimated(true), 100);
   }, []);
@@ -316,6 +333,30 @@ export default function ResultsPage() {
     const url = `/breeds/${encodeURIComponent(breedName)}`;
     window.open(url, '_blank', 'noopener,noreferrer');
   }
+function buildReadiness(answers = []) {
+  return [
+    {
+      label: 'Daily time for dog',
+      ok: answers.includes('3+ hours') || answers.includes('1–2 hours'),
+    },
+    {
+      label: 'Suitable living space',
+      ok: !answers.includes('Very little'),
+    },
+    {
+      label: 'Training willingness',
+      ok: answers.includes('A lot — I enjoy it') || answers.includes('Just the basics'),
+    },
+    {
+      label: 'Grooming readiness',
+      ok: !answers.includes('Minimal'),
+    },
+    {
+      label: 'Comfort with dog energy',
+      ok: !answers.includes('Low'),
+    },
+  ];
+}
 
   return (
     <main className="results-page">
@@ -328,14 +369,18 @@ export default function ResultsPage() {
       </header>
 
       <section className="results-body">
+
         <div className="dog-cards" id="resultsContainer">
           {loading ? (
             <p className="fallback">Loading your matches...</p>
           ) : matches.length === 0 ? (
             <p className="fallback">{fallbackText}</p>
           ) : (
-            matches.map(breed => (
+        matches.map((breed, index) => (
               <article className="dog-card" key={breed.name}>
+                {index === 0 && <span className="rank-badge gold">🥇 Best Match</span>}
+                {index === 1 && <span className="rank-badge silver">🥈 Great Match</span>}
+                {index === 2 && <span className="rank-badge bronze">🥉 Good Alternative</span>}
                 <img src={breed.image} alt={breed.name} />
                 <div className="card-content">
                   <h3>{breed.name}</h3>
@@ -398,6 +443,28 @@ export default function ResultsPage() {
           )}
         </div>
       </section>
+      
+      <div className="result-actions">
+  <button
+    className="save-btn"
+    onClick={() =>
+      alert('✅ Results saved! You can come back anytime.')
+    }
+  >
+    💾 Save Results
+  </button>
+
+  <button
+    className="share-btn"
+    onClick={() => {
+      navigator.clipboard.writeText(window.location.href);
+      alert('🔗 Link copied! Share with friends.');
+    }}
+  >
+    📤 Share
+  </button>
+</div>
+
 
       <footer className="btn-bar">
         <button className="restart-btn" onClick={restartQuiz}>🔁 Retake the Quiz</button>

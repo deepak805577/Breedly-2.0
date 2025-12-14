@@ -18,7 +18,7 @@ body {
 .results-page {
   font-family: 'Fredoka', sans-serif;
   margin: 0;
-  padding: 40px 20px;
+  
   background: transparent;
   background-size: cover;
   background-attachment: fixed;
@@ -161,6 +161,40 @@ h1 {
   background: #ffe9c8;
   transform: scale(1.05);
 }
+.result-actions {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.save-btn,
+.share-btn {
+  padding: 12px 26px;
+  border-radius: 30px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.25s ease, background 0.25s ease;
+}
+
+.save-btn {
+  background: #cd9866;
+  color: white;
+}
+
+.share-btn {
+  border: solid #cd9866;
+  background: #f5f4f2;
+  color: #564b4b;
+}
+
+.save-btn:hover,
+.share-btn:hover {
+  transform: scale(1.06);
+}
 
 /* Button section */
 .btn-bar {
@@ -172,6 +206,7 @@ h1 {
 }
 
 .restart-btn {
+  margin-top: 20px;
   background: #8b6745;
   color: white;
   padding: 12px 28px;
@@ -236,6 +271,35 @@ h1 {
     font-size: 1rem;
     padding: 12px 26px;
   }
+}.rank-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  padding: 5px 10px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  border-radius: 20px;
+  background: white;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.12);
+}
+
+.gold {
+  color: #b8860b;
+  border: 1px solid #e6c200;
+}
+
+.silver {
+  color: #6b7280;
+  border: 1px solid #cfd4da;
+}
+
+.bronze {
+  color: #8b4513;
+  border: 1px solid #d2a679;
+}
+
+.dog-card {
+  position: relative;
 }
 
 /* Mobile (≤600px) */
@@ -257,14 +321,22 @@ h1 {
     margin-bottom: 25px;
   }
 
+
   .dog-card {
     width: 100%;
-    max-width: 280px;
+    max-width: 175px;
     padding: 16px;
+    height: 380px;
   }
-
+.dog-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 40px;
+}
   .dog-card img {
-    height: 290px;
+    height: 180px;
   }
 
   .btn-bar {
@@ -294,9 +366,23 @@ h1 {
   .slogan {
     font-size: 0.9rem;
   }
+  .dog-card{
+    height: 340px;
+    max-width: 162px;
+  }
+  .dog-card p{
+    font-size: 12px;
+  }
+.dog-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 40px;
+}
 
   .dog-card img {
-    height: 280px;
+    height: 150px;
   }
 
   .restart-btn {
