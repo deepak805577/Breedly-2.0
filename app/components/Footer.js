@@ -4,9 +4,13 @@ import { usePathname } from "next/navigation";
 export default function Footer() {
   const pathname = usePathname();
 
+  // 🚫 Hide footer on immersive flows
   const hideFooter =
     pathname.startsWith("/breed-selector") ||
     pathname.startsWith("/results");
+
+  // ✅ IMPORTANT: stop rendering completely
+  if (hideFooter) return null;
 
   return (
     <footer className={hideFooter ? "nav-hidden" : ""}>

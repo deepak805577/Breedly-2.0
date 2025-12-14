@@ -4,7 +4,7 @@ import './breed-selector.css';
 import { useState } from 'react';
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-
+import Confetti from 'react-confetti'; // npm install react-confetti
 
 const questions = [
   {
@@ -186,59 +186,76 @@ const questions = [
     ]
   }
 ];
-
- 
-  
 export default function BreedSelector() {
+  const router = useRouter();
+
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState([]);
+  const [fade, setFade] = useState(true);
+  const [finished, setFinished] = useState(false);
+  const [progressWidth, setProgressWidth] = useState(0);
+
+useEffect(() => {
+  const newProgress = ((currentQuestion + 1) / questions.length) * 100;
+  const timer = setTimeout(() => setProgressWidth(newProgress), 50);
+  return () => clearTimeout(timer);
+}, [currentQuestion]);
+
+
+  const q = questions[currentQuestion];
+  const progress = ((currentQuestion + 1) / questions.length) * 100;
 
   const handleAnswer = (answer) => {
-    const newAnswers = [...answers];
-    newAnswers[currentQuestion] = answer;
-    setAnswers(newAnswers);
+    // Save answer
+    const updatedAnswers = [...answers];
+    updatedAnswers[currentQuestion] = answer;
+    setAnswers(updatedAnswers);
 
-    // Auto move to next question after selection (with small delay)
+    // Trigger fade-out
+    
+    //setFade(false);
+
     setTimeout(() => {
       if (currentQuestion < questions.length - 1) {
         setCurrentQuestion(currentQuestion + 1);
+        setFade(true); // fade-in next question
       } else {
-        // store answers and redirect to results page
-        localStorage.setItem("breedlyAnswers", JSON.stringify(newAnswers));
-        window.location.href = "/results";
+        // Quiz finished
+        setFinished(true);
+        localStorage.setItem('breedlyAnswers', JSON.stringify(updatedAnswers));
+
+        // Redirect after 2s
+        setTimeout(() => router.push('/results'), 2000);
       }
-    }, 350); // small delay for selection effect
+    }, 300); // fade duration
   };
 
-  const progress = ((currentQuestion + 1) / questions.length) * 100;
-  const q = questions[currentQuestion];
-  const router = useRouter();
+  const handleBack = () => {
+    if (currentQuestion === 0) return;
+    setFade(false);
 
-  
+    setTimeout(() => {
+      setCurrentQuestion(currentQuestion - 1);
+      setFade(true);
+    }, 200);
+  };
+
   return (
-    
-    <div style={{ position: "relative", minHeight: "100vh" }}>
-      {/* Background */}
-      <div className="bg-image-wrapper">
-        <img
-          src="/assets/images/quiz-bg.png"
-          alt="Background Paws"
-          className="bg-image"
-        />
-      </div>
-
+    <div className="quiz-page">
+      {finished && <Confetti />}
       {/* Header */}
       <div className="quiz-header-banner">
         <h1>BreedLy 🐶</h1>
-        <p>Find your perfect pup match — Tail-wagging happiness awaits!</p>
+        <p>Find your perfect pup match</p>
       </div>
 
+      {/* Quote */}
       <div className="quote-bar">
-        "Dogs do speak, but only to those who know how to listen." – Orhan Pamuk
+        “Dogs do speak, but only to those who know how to listen.”
       </div>
 
-      {/* Quiz Body */}
-      <section className="quiz-container">
+      {/* Quiz */}
+      <section className={`quiz-container ${fade ? 'fade-in' : 'fade-out'}`}>
         <div className="quiz-header">
           <h2>{q.question}</h2>
           <p className="quiz-tip">{q.tip}</p>
@@ -246,39 +263,34 @@ export default function BreedSelector() {
 
         <div className="quiz-options">
           {q.options.map((opt, i) => (
-            <div
+            <button
               key={i}
-              className={`option-circle ${
-                answers[currentQuestion] === opt.text ? "selected" : ""
-              }`}
+              className={`option-circle ${answers[currentQuestion] === opt.text ? 'selected' : ''}`}
               onClick={() => handleAnswer(opt.text)}
             >
               <span>{opt.icon}</span>
               <p>{opt.text}</p>
-            </div>
+            </button>
           ))}
         </div>
 
-        {/* Progress Bar */}
+        {/* Progress */}
         <div className="progress-bar">
-          <div
-            className="progress-fill"
-            style={{ width: `${progress}%` }}
-          ></div>
+          <div className="progress-fill" style={{ width: `${progress}%` }} />
         </div>
 
-        {/* Summary */}
-        <div className="quiz-summary">
-          <strong>Your choices so far:</strong>
-          <p>
-            {answers
-              .map((a, i) => (a ? `Q${i + 1}: ${a}` : null))
-              .filter(Boolean)
-              .join(" | ") || "None yet."}
-          </p>
+        {/* Navigation */}
+        <div className="quiz-nav">
+          <button
+            className="back-btn"
+            onClick={handleBack}
+            disabled={currentQuestion === 0}
+          >
+            ← Back
+          </button>
+          <span className="step-count">{currentQuestion + 1} / {questions.length}</span>
         </div>
       </section>
     </div>
-  
   );
 }

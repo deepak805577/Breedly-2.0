@@ -1,11 +1,33 @@
+"use client";
+
+import { useEffect } from "react";
 import Link from "next/link";
 
 export default function HomePage() {
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+
+    const elements = document.querySelectorAll(".fade-in");
+    elements.forEach(el => observer.observe(el));
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <div className="home">
+    <div className="home fade-in">
       {/* HERO */}
       <section className="hero">
-  <div className="hero-content">
+  <div className="hero-content fade-in">
     <h1>
       Find the Right Dog.<br />
       Care for Them the Right Way 🐾
@@ -15,18 +37,21 @@ export default function HomePage() {
       with food, health, and training — responsibly.
     </p>
 
-    <div className="hero-actions">
-      <Link href="/breed-selector" className="btn-primary">
-        Start Breed Selector
-      </Link>
-      <Link href="/breeds" className="btn-secondary">
-        Explore Breeds
-      </Link>
-    </div>
+    <div className="hero-actions fade-in">
+  <Link href="/breed-selector" className="btn-primary">
+    Find My Ideal Dog 🐕
+  </Link>
+
+  <Link href="/breeds" className="btn-secondary">
+    Browse Breeds
+  </Link>
+</div>
+
+    
   </div>
 </section>
 
-<section className="why-choose">
+<section className="why-choose fade-in">
   <h2 className="section-title">Why Dog Owners Choose Breedly</h2>
 
   <div className="grid-3">
@@ -47,7 +72,7 @@ export default function HomePage() {
   </div>
 </section>
    {/* FEATURE STRIP */}
-      <section className="features">
+      <section className="features fade-in">
         <div className="feature">
           🧠 <strong>Breed Knowledge</strong>
           <span>Temperament, care & lifestyle fit</span>
@@ -63,7 +88,7 @@ export default function HomePage() {
       </section>
 
 
-<section className="how-breedly">
+<section className="how-breedly fade-in">
   <h2 className="section-title">How Breedly Works</h2>
 
   <div className="grid-3">
@@ -89,7 +114,7 @@ export default function HomePage() {
 
    
      {/* HOW BREEDLY HELPS YOU */}
-<section className="how-links">
+<section className="how-links fade-in">
   <h2 className="section-title">How Breedly Helps You</h2>
 
   <div className="how-list">
@@ -121,7 +146,7 @@ export default function HomePage() {
 
 
       {/* EXPLORE */}
-      <section className="explore">
+      <section className="explore fade-in">
         <h2>Explore Popular Breeds</h2>
         <p>Learn what makes each breed unique before you decide.</p>
 
@@ -134,7 +159,7 @@ export default function HomePage() {
 
 
       {/* WHO IT'S FOR */}
-<section className="who-for">
+<section className="who-for fade-in">
   <h2>Breedly Is For</h2>
 
   <div className="who-grid">
@@ -147,7 +172,7 @@ export default function HomePage() {
 
 
 {/* TRUST NOTE */}
-<section className="trust-note">
+<section className="trust-note fade-in">
   <p>
     Breedly promotes responsible dog ownership. All information is
     educational and encourages adoption-first, wellbeing-focused decisions.
@@ -156,7 +181,7 @@ export default function HomePage() {
 
 
       {/* CTA */}
-      <section className="cta">
+      <section className="cta fade-in">
         <h2>Not sure which breed suits you?</h2>
         <p>
           Answer a few simple questions and we’ll guide you.
@@ -164,7 +189,13 @@ export default function HomePage() {
         <Link href="/breed-selector" className="btn-primary">
           Start Breed Selector
         </Link>
+        
+        <p className="hero-trust">
+  ✔ Trusted by responsible dog lovers • ✔ No forced adoption
+</p>
+
       </section>
+      
     </div>
   );
 }

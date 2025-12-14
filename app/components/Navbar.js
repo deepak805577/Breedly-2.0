@@ -1,15 +1,35 @@
 "use client";
 
+import { useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 export default function Navbar() {
   const pathname = usePathname();
 
-  // Only hide navbar on immersive flows
+  // 🚫 Hide navbar on immersive flows
   const hideNavbar =
     pathname.startsWith("/breed-selector") ||
     pathname.startsWith("/results");
+
+  // ✅ IMPORTANT: stop rendering completely
+  if (hideNavbar) return null;
+
+  useEffect(() => {
+    const nav = document.querySelector(".navbar");
+    if (!nav) return;
+
+    const handleScroll = () => {
+      nav.classList.toggle("scrolled", window.scrollY > 20);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    handleScroll(); // run once on load
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   return (
     <>
