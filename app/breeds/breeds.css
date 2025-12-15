@@ -93,7 +93,6 @@ body {
 }
 
 .filters.sticky {
-  position: sticky;
   top: 10px;
   z-index: 5;
 }
