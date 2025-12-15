@@ -3,7 +3,7 @@
 ================================ */
 
 :root {
-  --primary: #f59a4a;
+  --primary: #e8c8a6;
   --primary-soft: #fff1e3;
   --text-main: #7a6c5e;
   --text-muted: #6b6b6b;
@@ -14,7 +14,9 @@
   --warn: #c62828;
 }
 
-
+.page-content{
+    padding: 0;
+}
 /* Page */
 .adoption-page {
   min-height: 100vh;
@@ -25,26 +27,26 @@
 }
 
 /* Header */
-.adoption-header {
+.adoption-page .adoption-header {
   max-width: 720px;
   margin: 0 auto 40px;
   text-align: center;
   animation: fadeDown 0.6s ease both;
 }
 
-.adoption-header h1 {
+.adoption-page .adoption-header h1 {
   font-size: 2.4rem;
   margin-bottom: 8px;
 }
 
-.adoption-header p {
+.adoption-page .adoption-header p {
   font-size: 1rem;
   color: var(--text-muted);
   line-height: 1.7;
 }
 
 /* Main Card */
-.adoption-card {
+.adoption-page .adoption-card {
   max-width: 780px;
   margin: auto;
   padding: 30px;
@@ -55,25 +57,25 @@
 }
 
 /* Section */
-.check-section {
+.adoption-page .check-section {
   margin-bottom: 28px;
 }
 
-.check-section h3 {
+.adoption-page .check-section h3 {
   font-size: 1.1rem;
   margin-bottom: 14px;
   color: #3d3d3d;
 }
 
 /* Checklist */
-.checklist {
+.adoption-page .checklist {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
 /* Item */
-.check-item {
+.adoption-page .check-item {
   display: flex;
   gap: 14px;
   padding: 14px 16px;
@@ -85,79 +87,79 @@
   animation: slideIn 0.4s ease both;
 }
 
-.check-item:hover {
+.adoption-page .check-item:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 14px rgba(0,0,0,0.06);
 }
 
 /* Checkbox */
-.check-item input {
+.adoption-page .check-item input {
   margin-top: 6px;
   accent-color: var(--primary);
   transform: scale(1.1);
 }
 
 /* Text */
-.check-content strong {
+.adoption-page .check-content strong {
   display: block;
   font-size: 0.95rem;
 }
 
-.check-content span {
+.adoption-page .check-content span {
   font-size: 0.85rem;
   color: var(--text-muted);
   line-height: 1.4;
 }
 
 /* Checked state */
-.check-item.checked {
+.adoption-page .check-item.checked {
   background: var(--primary-soft);
   border-color: var(--primary);
 }
 
 /* Progress */
-.progress-section {
+.adoption-page .progress-box {
   margin-top: 30px;
 }
 
-.progress-label {
+.adoption-page .progress-box p {
   font-size: 0.9rem;
   font-weight: 600;
   margin-bottom: 6px;
 }
 
-.progress-bar {
+.adoption-page .progress-bar {
   height: 9px;
   background: #ececec;
   border-radius: 10px;
   overflow: hidden;
 }
 
-.progress-fill {
+.adoption-page .fill {
   height: 100%;
   width: 0%;
-  background: linear-gradient(90deg, #f59a4a, #ffb067);
+  background: linear-gradient(90deg, #b8865b, #dcac7f);
   transition: width 0.45s cubic-bezier(.4,0,.2,1);
 }
 
 /* Result */
-.result-text {
+.adoption-page .result-text {
   margin-top: 12px;
   font-size: 0.95rem;
   font-weight: 600;
   animation: pulse 0.4s ease;
 }
 
-.result-text.good {
+.adoption-page .result-text.good {
   color: var(--success);
 }
 
-.result-text.warn {
+.adoption-page .result-text.warn {
   color: var(--warn);
 }
 
 /* Actions */
-.adoption-actions {
+.adoption-page .adoption-actions {
   margin-top: 34px;
   display: flex;
   justify-content: center;
@@ -165,7 +167,7 @@
   flex-wrap: wrap;
 }
 
-.adoption-actions button {
+.adoption-page .adoption-actions button {
   padding: 12px 26px;
   font-size: 0.95rem;
   border-radius: 8px;
@@ -176,26 +178,27 @@
 }
 
 /* Buttons */
-.btn-primary {
+.adoption-page .btn-primary {
   background: var(--primary);
   color: white;
 }
 
-.btn-primary:hover {
+.adoption-page .btn-primary:hover {
   transform: translateY(-1px);
-  background: #e38935;
+  background: #b4885e;
 }
 
-.btn-secondary {
+.adoption-page .btn-secondary {
   background: transparent;
   border: 1px solid var(--border-light);
   color: var(--text-main);
 }
 
-.btn-secondary:hover {
+.adoption-page .btn-secondary:hover {
   background: #f4f4f4;
 }
-.continue-btn {
+
+.adoption-page .continue-btn {
   margin: 30px auto 10px;
   padding: 14px 36px;
   font-size: 1.05rem;
@@ -218,18 +221,18 @@
 }
 
 /* Hover */
-.continue-btn:hover:not(:disabled) {
+.adoption-page .continue-btn:hover:not(:disabled) {
   transform: translateY(-2px) scale(1.03);
   box-shadow: 0 16px 36px rgba(255, 140, 43, 0.45);
 }
 
 /* Active click */
-.continue-btn:active:not(:disabled) {
+.adoption-page .continue-btn:active:not(:disabled) {
   transform: scale(0.97);
 }
 
 /* Disabled state */
-.continue-btn:disabled {
+.adoption-page .continue-btn:disabled {
   opacity: 0.45;
   cursor: not-allowed;
   box-shadow: none;
@@ -238,7 +241,7 @@
 }
 
 /* Entrance animation */
-.continue-btn {
+.adoption-page .continue-btn {
   animation: popIn 0.5s ease forwards;
 }
 
@@ -255,7 +258,7 @@
 
 /* 📱 Mobile optimization */
 @media (max-width: 600px) {
-  .continue-btn {
+  .adoption-page .continue-btn {
     width: 100%;
     max-width: 260px;
     font-size: 1rem;
@@ -293,19 +296,19 @@
 ================================ */
 
 @media (max-width: 600px) {
-  .adoption-header h1 {
+  .adoption-page .adoption-header h1 {
     font-size: 1.8rem;
   }
 
-  .adoption-card {
+  .adoption-page .adoption-card {
     padding: 22px;
   }
 
-  .check-item {
+  .adoption-page .check-item {
     padding: 12px;
   }
 
-  .adoption-actions button {
+  .adoption-page .adoption-actions button {
     width: 100%;
     max-width: 260px;
   }
