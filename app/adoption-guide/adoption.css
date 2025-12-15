@@ -21,7 +21,7 @@
 .adoption-page {
   min-height: 100vh;
   padding: 50px 20px 90px;
-  background: var(--bg-soft);
+
   font-family: 'Fredoka', system-ui, sans-serif;
   color: var(--text-main);
 }
