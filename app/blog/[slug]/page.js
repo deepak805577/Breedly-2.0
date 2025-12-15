@@ -1,7 +1,7 @@
 "use client";
 import { useParams } from "next/navigation";
 import { blogs } from "../../data/blogs";
-import "./blog.css";
+import "../blog.css";
 
 export default function BlogDetailPage() {
   const { slug } = useParams();

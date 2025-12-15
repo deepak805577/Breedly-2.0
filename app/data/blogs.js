@@ -4,7 +4,7 @@ export const blogs = [
     title: "First-Time Dog Adoption: A Complete Beginner’s Guide",
     excerpt:
       "Thinking of adopting a dog? Learn everything you must know before bringing a dog home.",
-    cover: "/assets/blogs/adoption-guide.jpg",
+    cover: "/assets/Dogs/Golden Retriever.webp",
     readTime: "6 min read",
     tags: ["Adoption", "Beginners"],
     content: `
@@ -28,7 +28,7 @@ A prepared adopter makes a happy dog and a joyful home.
     title: "Best Dog Breeds for Apartment Living",
     excerpt:
       "Not all dogs need big houses. Discover breeds that thrive in apartments.",
-    cover: "/assets/blogs/apartment-dogs.jpg",
+    cover: "/assets/Dogs/Pug.jpg",
     readTime: "5 min read",
     tags: ["Breeds", "Apartments"],
     content: `
