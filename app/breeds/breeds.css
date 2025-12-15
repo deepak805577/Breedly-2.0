@@ -1,19 +1,40 @@
-
+/* ---------- GLOBAL ---------- */
 body {
   font-family: 'Fredoka', sans-serif;
   margin: 0;
   padding: 40px 20px;
-  position: relative;
   overflow-x: hidden;
 }
+:root {
+  --bg: #f3f0e6;
+  --surface: #ffffff;
+  --primary: #e8c8a6;
+  --primary-soft: #e7f0ff;
+  --text: #8b7a6a;
+  --muted: #A67B5B;
+  --border: #e5e7eb;
+  --radius: 16px;
+}
 
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Fredoka', sans-serif;
+  overflow-x: hidden;
+}@font-face {
+  font-family: 'Dogica';
+  src: url('/fonts/Dogica.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+
+/* ---------- BACKGROUND ---------- */
 .bg-img-wrapper {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1; /* keep it behind everything */
+  inset: 0;
+  z-index: -1;
   overflow: hidden;
 }
 
@@ -21,72 +42,211 @@ body {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 1; /* Adjust for soft background effect */
+  opacity: 0.18;
+  filter: blur(2px);
 }
 
-    h1 {
-      text-align: center;
-      color: #4e148c;
-      margin-bottom: 20px;
-    }
+/* ---------- HEADER ---------- */
+.breeds-header {
+  text-align: center;
+  margin-bottom: 25px;
+}
 
-    .filters {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      flex-wrap: wrap;
-      margin-bottom: 30px;
-    }
+.breeds-header h1 {
+  font-size: 2.4rem;
+  margin-bottom: 6px;
+}
 
-    .filters select {
-      padding: 10px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      font-size: 1rem;
-    }
+.breeds-header p {
+  color: #555;
+  font-size: 1rem;
+}
 
-    .breed-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 25px;
-      justify-content: center;
-    }
+/* ---------- SEARCH ---------- */
+.search-box {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 18px;
+}
 
-    .breed-card {
-      background: #fff8f2;
-      width: 240px;
-      padding: 15px;
-      border-radius: 14px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-      text-align: center;
-      transition: transform 0.3s ease;
-    }
+.search-box input {
+  width: 100%;
+  max-width: 320px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-size: 0.95rem;
+  outline: none;
+}
 
-    .breed-card:hover {
-      transform: translateY(-4px);
-    }
+.search-box input:focus {
+  border-color: #A67B5B;
+}
 
-    .breed-card img {
-      width: 100%;
-      height: 280px;
-      object-fit: cover;
-      border-radius: 10px;
-    }
+/* ---------- FILTERS ---------- */
+.filters {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
 
-    .breed-card h3 {
-      margin: 10px 0 6px;
-      color: #5a2a03;
-    }
+.filters.sticky {
+  position: sticky;
+  top: 10px;
+  z-index: 5;
+}
 
-    .breed-card p {
-      font-size: 0.85rem;
-      color: #777;
-    }
+.filters select {
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-size: 0.9rem;
+  background: white;
+}
 
-    .breed-card a {
-      display: inline-block;
-      margin-top: 10px;
-      color: #4e148c;
-      text-decoration: underline;
-      font-weight: bold;
-    }
+.clear-btn {
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: none;
+  background: #A67B5B;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.clear-btn:hover {
+  background: #7d5d44;
+}
+
+/* ---------- RESULTS INFO ---------- */
+.results-info {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+/* ---------- GRID ---------- */
+.breed-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 24px;
+  max-width: 1100px;
+  margin: auto;
+}
+
+/* ---------- CARD ---------- */
+.breed-card {
+  background: #fff8f2;
+  padding: 14px;
+  border-radius: 16px;
+  text-align: center;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.breed-card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+}
+
+/* ---------- IMAGE ---------- */
+.breed-card img {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+/* ---------- TEXT ---------- */
+.breed-card h3 {
+  margin: 10px 0 4px;
+  color: #5a2a03;
+  font-size: 1.05rem;
+}
+
+.breed-card .meta {
+  font-size: 0.82rem;
+  color: #777;
+  margin-bottom: 10px;
+}
+
+/* ---------- CTA ---------- */
+.view-btn {
+  display: inline-block;
+  padding: 8px 14px;
+  border-radius: 20px;
+  background: #A67B5B;
+  color: white;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.view-btn:hover {
+  background: #826148;
+  transform: translateY(-1px);
+}
+
+/* ---------- EMPTY STATE ---------- */
+.empty-state {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 40px 0;
+}
+
+.empty-state p {
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.empty-state button {
+  padding: 10px 16px;
+  border-radius: 10px;
+  border: none;
+  background: #A67B5B;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+@media (max-width: 480px) {
+  body {
+    padding: 20px 12px;
+  }
+
+  .breeds-header h1 {
+    font-size: 1.8rem;
+  }
+
+  .breeds-header p {
+    font-size: 0.9rem;
+  }
+
+  .breed-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .breed-card img {
+    height: 220px;
+  }
+
+  .view-btn {
+    font-size: 0.8rem;
+    padding: 7px 12px;
+  }
+}
+@media (max-width: 768px) {
+  .breed-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+
+  .breed-card img {
+    height: 240px;
+  }
+}

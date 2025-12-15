@@ -9,7 +9,8 @@ export default function Footer() {
     pathname.startsWith("/breed-selector") ||
     pathname.startsWith("/results") ||
     pathname.startsWith("/adoption-guide")||
-    pathname.startsWith("/adoption-success");
+    pathname.startsWith("/adoption-success")||
+    pathname.startsWith("/breeds");
 
   // ✅ IMPORTANT: stop rendering completely
   if (hideFooter) return null;

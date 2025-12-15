@@ -12,7 +12,9 @@ export default function Navbar() {
     pathname.startsWith("/breed-selector") ||
     pathname.startsWith("/results")||
     pathname.startsWith("/adoption-guide")||
-    pathname.startsWith("/adoption-success");
+    pathname.startsWith("/adoption-success")||
+    pathname.startsWith("/breeds");
+
 
   // ✅ IMPORTANT: stop rendering completely
   if (hideNavbar) return null;

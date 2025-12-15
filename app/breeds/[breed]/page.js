@@ -3,6 +3,7 @@ import "./breed.css";
 import { useParams, useRouter } from "next/navigation";
 import { breeds } from "../../data/breeds";
 
+
 export default function BreedDetailPage() {
   const params = useParams();
   const router = useRouter();
@@ -33,16 +34,20 @@ export default function BreedDetailPage() {
 }
       {/* Breed Info Container */}
       <div className="breed-info">
-        <img src={breed.image} alt={breedKey} />
-
-        <h1>{breedKey}</h1>
+     <section className="breed-hero">
+  <img src={breed.image} alt={breedKey} />
+  <div>
+    <h1>{breedKey}</h1>
+    <p className="tagline">{breed.bestFor}</p>
+  </div>
+</section>
 
         {/* Description */}
         <div className="desc">
           <h2>Description</h2>
           <p>{breed.description}</p>
         </div>
-
+   
         {/* Traits */}
         {breed.traits && (
           <div className="traits">
@@ -101,97 +106,45 @@ export default function BreedDetailPage() {
             <p>{breed.bestFor}</p>
           </div>
         )}
+<p className="health-disclaimer">
+  ⚠️ Health information is for educational purposes only and not a substitute for veterinary advice.
+</p>
 
         {/* Health Guide */}
-        {breed.healthGuide && (
-          <div className="health-guide">
-            <h2>Health Guide</h2>
-            <p><strong>Lifespan:</strong> {breed.healthGuide.lifespan}</p>
+    {breed.healthAwareness && (
+  <section className="health-awareness">
+    <h2>🩺 Health Awareness</h2>
 
-            {breed.healthGuide.common_health_issues && (
-              <>
-                <h3>Common Health Issues:</h3>
-                <ul>
-                  {breed.healthGuide.common_health_issues.map((issue, i) => (
-                    <li key={i}>
-                      <strong>{issue.issue}:</strong> {issue.description}<br />
-                      <em>Tip:</em> {issue.tip}
-                    </li>
-                  ))}
-                </ul>
-              </>
-            )}
+    {breed.healthAwareness.commonIssues && (
+      <>
+        <h3>Common Health Concerns</h3>
+        <ul>
+          {breed.healthAwareness.commonIssues.map((issue, i) => (
+            <li key={i}>
+              <strong>{issue.name}:</strong> {issue.note}
+            </li>
+          ))}
+        </ul>
+      </>
+    )}
 
-            {breed.healthGuide.preventive_care && (
-              <>
-                <h3>Preventive Care:</h3>
-                <ul>
-                  <li>
-                    <strong>Vaccinations:</strong> {breed.healthGuide.preventive_care.vaccinations.join(", ")}
-                  </li>
-                  <li>
-                    <strong>Deworming:</strong> Puppies: {breed.healthGuide.preventive_care.deworming.puppies}, Adults: {breed.healthGuide.preventive_care.deworming.adults}
-                  </li>
-                  <li>
-                    <strong>Tick & Flea:</strong> {breed.healthGuide.preventive_care.tick_flea_control}
-                  </li>
-                  <li>
-                    <strong>Spay/Neuter:</strong> {breed.healthGuide.preventive_care.spay_neuter}
-                  </li>
-                  <li>
-                    <strong>Annual Vet Checks:</strong> {breed.healthGuide.preventive_care.annual_vet_checks.join(", ")}
-                  </li>
-                </ul>
-              </>
-            )}
+    {breed.healthAwareness.preventionTips && (
+      <>
+        <h3>General Prevention Tips</h3>
+        <ul>
+          {breed.healthAwareness.preventionTips.map((tip, i) => (
+            <li key={i}>{tip}</li>
+          ))}
+        </ul>
+      </>
+    )}
 
-            {breed.healthGuide.diet && (
-              <>
-                <h3>Diet Recommendations:</h3>
-                <ul>
-                  <li>Protein: {breed.healthGuide.diet.protein}</li>
-                  <li>Fat: {breed.healthGuide.diet.fat}</li>
-                  <li>Carbs: {breed.healthGuide.diet.carbs}</li>
-                  <li>Fiber: {breed.healthGuide.diet.fiber}</li>
-                  <li><strong>Good Foods:</strong> {breed.healthGuide.diet.good_foods.join(", ")}</li>
-                  <li><strong>Treats:</strong> {breed.healthGuide.diet.treats}</li>
-                  <li><strong>Hydration:</strong> {breed.healthGuide.diet.hydration}</li>
-                </ul>
-              </>
-            )}
+    <p className="health-disclaimer">
+      ⚠️ {breed.healthAwareness.disclaimer}
+    </p>
+  </section>
+)}
 
-            {breed.healthGuide.exercise && (
-              <>
-                <h3>Daily Exercise:</h3>
-                <p><strong>Walks:</strong> {breed.healthGuide.exercise.daily_walks}</p>
-                <p><strong>Play:</strong> {breed.healthGuide.exercise.play.join(", ")}</p>
-                <p><strong>Training:</strong> {breed.healthGuide.exercise.training}</p>
-              </>
-            )}
-
-            {breed.healthGuide.grooming && (
-              <>
-                <h3>Grooming Routine:</h3>
-                <ul>
-                  <li>Brushing: {breed.healthGuide.grooming.brushing}</li>
-                  <li>Bathing: {breed.healthGuide.grooming.bathing}</li>
-                  <li>Ear Cleaning: {breed.healthGuide.grooming.ear_cleaning}</li>
-                  <li>Nail Clipping: {breed.healthGuide.grooming.nail_clipping}</li>
-                  <li>Dental Care: {breed.healthGuide.grooming.dental_care}</li>
-                </ul>
-              </>
-            )}
-
-            {breed.healthGuide.wellbeing_tips && (
-              <>
-                <h3>Wellbeing Tips:</h3>
-                <ul>{breed.healthGuide.wellbeing_tips.map((tip, i) => <li key={i}>{tip}</li>)}</ul>
-              </>
-            )}
-
-            <p><strong>Golden Rule:</strong> {breed.healthGuide.golden_rule}</p>
-          </div>
-        )}
       </div>
 
       {/* Video Section */}
