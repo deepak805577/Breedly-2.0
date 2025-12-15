@@ -195,6 +195,57 @@ h1 {
 .share-btn:hover {
   transform: scale(1.06);
 }
+.why-match {
+  max-width: 680px;
+  margin: 35px auto 10px;
+  padding: 22px 26px;
+  background: #fff8f2;
+  border-radius: 18px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.07);
+  text-align: left;
+}
+
+.why-match h2 {
+  text-align: center;
+  margin-bottom: 14px;
+}
+
+.why-match ul {
+  padding-left: 0;
+  list-style: none;
+}
+
+.why-match li {
+  margin: 10px 0;
+  font-size: 0.95rem;
+  color: #444;
+}
+.dog-card {
+  position: relative;
+}
+
+.fav-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: white;
+  border: none;
+  font-size: 1.3rem;
+  cursor: pointer;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+  transition: transform 0.2s ease;
+}
+
+.fav-btn:hover {
+  transform: scale(1.15);
+}
+
+.fav-btn.active {
+  background: #ffe6ea;
+}
 
 /* Button section */
 .btn-bar {

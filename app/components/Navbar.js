@@ -10,7 +10,9 @@ export default function Navbar() {
   // 🚫 Hide navbar on immersive flows
   const hideNavbar =
     pathname.startsWith("/breed-selector") ||
-    pathname.startsWith("/results");
+    pathname.startsWith("/results")||
+    pathname.startsWith("/adoption-guide")||
+    pathname.startsWith("/adoption-success");
 
   // ✅ IMPORTANT: stop rendering completely
   if (hideNavbar) return null;

@@ -7,7 +7,9 @@ export default function Footer() {
   // 🚫 Hide footer on immersive flows
   const hideFooter =
     pathname.startsWith("/breed-selector") ||
-    pathname.startsWith("/results");
+    pathname.startsWith("/results") ||
+    pathname.startsWith("/adoption-guide")||
+    pathname.startsWith("/adoption-success");
 
   // ✅ IMPORTANT: stop rendering completely
   if (hideFooter) return null;

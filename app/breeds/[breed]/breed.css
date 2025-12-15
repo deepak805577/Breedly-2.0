@@ -4,11 +4,21 @@
       margin: 0;
       padding: 40px 20px;
       text-align: center;
-      background-color: #fff8f2;
       animation: fadeIn 1s ease-in-out;
       position: relative;
       overflow-x: hidden;
     }
+    body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Fredoka', sans-serif;
+  overflow-x: hidden;
+}@font-face {
+  font-family: 'Dogica';
+  src: url('/fonts/Dogica.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
     
     /* app/breeds/[breed]/page.css */
 nav, footer {
@@ -97,7 +107,6 @@ nav, footer {
 
     h2 {
       font-size: 1.4rem;
-      color: #ff7a00;
       margin-bottom: 10px;
     }
 
@@ -178,6 +187,44 @@ nav, footer {
       background: #ffaa3c;
       transform: scale(1.05);
     }
+.next-steps {
+  margin-top: 50px;
+  padding: 30px;
+  background: linear-gradient(135deg, #fff3e6, #fef9f4);
+  border-radius: 20px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.next-steps h2 {
+  margin-bottom: 10px;
+}
+
+.next-steps p {
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.step-actions {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.step-actions button {
+  padding: 12px 18px;
+  border-radius: 12px;
+  background:#645040 ;
+  border: none;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.step-actions button:hover {
+  background: #ab8b6f;
+}
 
     @media (max-width: 600px) {
       h1 {

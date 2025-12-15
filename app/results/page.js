@@ -243,7 +243,26 @@ export default function ResultsPage() {
   const [fallbackText, setFallbackText] = useState('');
   const router = useRouter();
   const [animated, setAnimated] = useState(false);
+  const [answers, setAnswers] = useState([]);
 
+const [favorites, setFavorites] = useState([]);
+
+useEffect(() => {
+  const saved = JSON.parse(localStorage.getItem('favoriteBreeds')) || [];
+  setFavorites(saved);
+}, []);
+const toggleFavorite = (breedName) => {
+  let updated;
+
+  if (favorites.includes(breedName)) {
+    updated = favorites.filter((b) => b !== breedName);
+  } else {
+    updated = [...favorites, breedName];
+  }
+
+  setFavorites(updated);
+  localStorage.setItem('favoriteBreeds', JSON.stringify(updated));
+};
 
   useEffect(() => {
     const raw =
@@ -272,6 +291,7 @@ export default function ResultsPage() {
     try {
       answers = JSON.parse(raw);
       if (!Array.isArray(answers)) throw new Error('Answers should be an array');
+      setAnswers(answers);
     } catch (err) {
       console.error('Failed to parse quiz answers:', err);
       setFallbackText('There was a problem reading your quiz answers. Please retake the quiz.');
@@ -332,31 +352,34 @@ export default function ResultsPage() {
   function openBreed(breedName) {
     const url = `/breeds/${encodeURIComponent(breedName)}`;
     window.open(url, '_blank', 'noopener,noreferrer');
+  }function buildWhyMatch(answers = []) {
+  const reasons = [];
+
+  if (answers.includes('3+ hours')) {
+    reasons.push('You have ample daily time, which suits active and social breeds.');
   }
-function buildReadiness(answers = []) {
-  return [
-    {
-      label: 'Daily time for dog',
-      ok: answers.includes('3+ hours') || answers.includes('1–2 hours'),
-    },
-    {
-      label: 'Suitable living space',
-      ok: !answers.includes('Very little'),
-    },
-    {
-      label: 'Training willingness',
-      ok: answers.includes('A lot — I enjoy it') || answers.includes('Just the basics'),
-    },
-    {
-      label: 'Grooming readiness',
-      ok: !answers.includes('Minimal'),
-    },
-    {
-      label: 'Comfort with dog energy',
-      ok: !answers.includes('Low'),
-    },
-  ];
+
+  if (answers.includes('Apartment')) {
+    reasons.push('You prefer a compact living space, making adaptable or small breeds ideal.');
+  }
+
+  if (answers.includes('First-time owner')) {
+    reasons.push('You’re new to dog parenting, so beginner-friendly breeds suit you best.');
+  }
+
+  if (answers.includes('Low maintenance')) {
+    reasons.push('You prefer easy grooming and care routines.');
+  }
+
+  if (answers.includes('Very active')) {
+    reasons.push('Your energetic lifestyle matches playful, high-energy dogs.');
+  }
+
+  return reasons.length
+    ? reasons
+    : ['Your lifestyle answers align well with balanced, adaptable dog breeds.'];
 }
+
 
   return (
     <main className="results-page">
@@ -368,7 +391,20 @@ function buildReadiness(answers = []) {
         <p className="quote">“The better I get to know men, the more I find myself loving dogs.” – Charles de Gaulle</p>
       </header>
 
+
       <section className="results-body">
+      <section className="why-match">
+  <h2>💡 Why These Breeds Fit You</h2>
+  <ul>
+    {buildWhyMatch(answers).map((text, i) => (
+      <li key={i}>🐾 {text}</li>
+    ))}
+  </ul>
+</section>
+
+<p style={{ fontSize: '0.9rem', color: '#666' }}>
+  ❤️ Saved breeds: {favorites.length}
+</p>
 
         <div className="dog-cards" id="resultsContainer">
           {loading ? (
@@ -437,10 +473,20 @@ function buildReadiness(answers = []) {
                       View Full Info
                     </button>
                   </div>
+
+                            <button
+  className={`fav-btn ${favorites.includes(breed.name) ? 'active' : ''}`}
+  onClick={() => toggleFavorite(breed.name)}
+>
+  {favorites.includes(breed.name) ? '❤️' : '🤍'}
+</button>
+
                 </div>
               </article>
             ))
           )}
+
+
         </div>
       </section>
       
@@ -463,12 +509,17 @@ function buildReadiness(answers = []) {
   >
     📤 Share
   </button>
+
+
+  
 </div>
 
 
       <footer className="btn-bar">
         <button className="restart-btn" onClick={restartQuiz}>🔁 Retake the Quiz</button>
       </footer>
+
     </main>
+
   );
 }

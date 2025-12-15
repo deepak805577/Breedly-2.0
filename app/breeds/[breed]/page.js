@@ -1,18 +1,20 @@
 "use client";
 import "./breed.css";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { breeds } from "../../data/breeds";
 
 export default function BreedDetailPage() {
   const params = useParams();
+  const router = useRouter();
   const breedName = decodeURIComponent(params.breed)
     .replace(/-/g, " ")
     .trim()
     .toLowerCase(); 
      // ✔ Find in object instead of array
-  const breed = breeds[Object.keys(breeds).find(
+  const breedKey = Object.keys(breeds).find(
     (b) => b.trim().toLowerCase() === breedName
-  )];
+  );
+  const breed = breeds[breedKey];
 
   if (!breed) {
     return (
@@ -25,15 +27,15 @@ export default function BreedDetailPage() {
   return (
     <div className="breed-detail-page">
       {/* Background */}
-      <div className="bg-image-wrapper">
+     { /*<div className="bg-image-wrapper">
         <img src="/assets/bgg1.png" alt="Dog background" />
       </div>
-
+}
       {/* Breed Info Container */}
       <div className="breed-info">
-        <img src={breed.image} alt={breed.name} />
+        <img src={breed.image} alt={breedKey} />
 
-        <h1>{breed.name}</h1>
+        <h1>{breedKey}</h1>
 
         {/* Description */}
         <div className="desc">
@@ -214,7 +216,22 @@ export default function BreedDetailPage() {
         <a href="/results" className="back-link">← Back to results</a>
         <a href="/breeds" className="back-link">← Back to All Breeds</a>
 
+      
       </div> */}
+      
+      <section className="next-steps">
+  <h2>🐾 What’s the Next Step?</h2>
+  <p>
+    Choosing a dog is a long-term commitment. Let’s help you decide responsibly.
+  </p>
+
+  <div className="step-actions">
+    <button onClick={() => router.push('/adoption-guide')}>
+      🏡 Adoption Checklist
+    </button>
+  </div>
+</section>
+
      
 
       {/* Dog Quote */}
