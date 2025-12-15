@@ -2,7 +2,6 @@
 body {
   font-family: 'Fredoka', sans-serif;
   margin: 0;
-  padding: 40px 20px;
   overflow-x: hidden;
 }
 :root {
@@ -26,6 +25,13 @@ body {
   src: url('/fonts/Dogica.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
+}
+
+
+
+/* ---------- PAGE CONTAINER ---------- */
+.breeds-page {
+  padding: 40px 20px;
 }
 
 
