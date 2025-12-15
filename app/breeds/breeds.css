@@ -1,9 +1,4 @@
 /* ---------- GLOBAL ---------- */
-body {
-  font-family: 'Fredoka', sans-serif;
-  margin: 0;
-  overflow-x: hidden;
-}
 :root {
   --bg: #f3f0e6;
   --surface: #ffffff;
@@ -14,13 +9,7 @@ body {
   --border: #e5e7eb;
   --radius: 16px;
 }
-
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: 'Fredoka', sans-serif;
-  overflow-x: hidden;
-}@font-face {
+@font-face {
   font-family: 'Dogica';
   src: url('/fonts/Dogica.ttf') format('truetype');
   font-weight: normal;
@@ -219,7 +208,7 @@ body {
 }
 
 @media (max-width: 480px) {
-  body {
+  .breeds-page {
     padding: 20px 12px;
   }
 
