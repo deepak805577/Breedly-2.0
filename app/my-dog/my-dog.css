@@ -86,8 +86,8 @@
   display: inline-block;
   padding: 8px 14px;
   border-radius: 20px;
-  background: #f1e8ff;
-  color: #4e148c;
+  background: #ffe9d6;
+  color: #866e54;
   font-size: 0.85rem;
   text-decoration: none;
   font-weight: 600;
@@ -101,6 +101,7 @@
   background: #ffe9d6;
   color: #6b5741;
   font-size: 0.85rem;
+  border: none;
   text-decoration: none;
   font-weight: 600;
   margin-right: 6px;
@@ -110,8 +111,8 @@
   display: inline-block;
   padding: 8px 14px;
   border-radius: 20px;
-  background: #dbcfbd;
-  color: #d90429;
+  background: #ffe9d6;
+  color: #822828;
   font-size: 0.85rem;
   border: none;
   cursor: pointer;
