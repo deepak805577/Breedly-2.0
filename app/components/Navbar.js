@@ -75,8 +75,8 @@ export default function Navbar() {
         <NavItem href="/" label="Home" icon="home" pathname={pathname} />
         <NavItem href="/breed-selector" label="Select" icon="quiz" pathname={pathname} />
         <NavItem href="/breeds" label="Breeds" icon="info" pathname={pathname} />
-        <NavItem href="/blog" label="Guides" icon="blog" pathname={pathname} />
-        <NavItem href="/login" label="Profile" icon="user" pathname={pathname} />
+        <NavItem href="/my-dog" label="My Dog" icon="paw" pathname={pathname} />
+        <NavItem href="/login" label="Profile" icon="login" pathname={pathname} />
       </div>
     </>
   );
