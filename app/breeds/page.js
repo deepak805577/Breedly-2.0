@@ -1,8 +1,9 @@
 "use client";
 import "./breeds.css";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
 import { breedCards } from "../data/breed";
+
 
 export default function BreedsPage() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -10,6 +11,13 @@ export default function BreedsPage() {
   const [energyFilter, setEnergyFilter] = useState("");
   const [groomingFilter, setGroomingFilter] = useState("");
   const [expenseFilter, setExpenseFilter] = useState("");
+
+  const [loading, setLoading] = useState(true);
+
+useEffect(() => {
+  const timer = setTimeout(() => setLoading(false), 700);
+  return () => clearTimeout(timer);
+}, []);
 
   const filteredBreeds = useMemo(() => {
     return breedCards.filter((breed) => {
@@ -100,33 +108,36 @@ export default function BreedsPage() {
       </div>
 
       {/* Grid */}
-      <div className="breed-grid">
-        {filteredBreeds.length === 0 ? (
-          <div className="empty-state">
-            <p>No breeds match your filters.</p>
-            <button onClick={clearFilters}>Reset Filters</button>
-          </div>
-        ) : (
-          filteredBreeds.map((breed) => (
-            <div key={breed.name} className="breed-card">
-              <img src={breed.image} alt={breed.name} />
-
-              <h3>{breed.name}</h3>
-
-              <p className="meta">
-                {breed.size} · {breed.energy} energy · {breed.grooming} grooming
-              </p>
-
-              <Link
-                href={`/breeds/${encodeURIComponent(breed.name)}`}
-                className="view-btn"
-              >
-                View Details →
-              </Link>
-            </div>
-          ))
-        )}
+     <div className="breed-grid">
+  {loading ? (
+    Array.from({ length: 8 }).map((_, i) => (
+      <div key={i} className="breed-card skeleton">
+        <div className="skeleton-img"></div>
+        <div className="skeleton-line"></div>
+        <div className="skeleton-line small"></div>
       </div>
+    ))
+  ) : filteredBreeds.length === 0 ? (
+    <div className="empty-state">
+    <p>No breeds match your filters.</p>
+       <button onClick={clearFilters}>Reset Filters</button>
+          </div>
+  ) : (
+    filteredBreeds.map((breed) => (
+      <div key={breed.name} className="breed-card">
+        <img src={breed.image} alt={breed.name} />
+        <h3>{breed.name}</h3>
+        <p className="meta">
+          Size: {breed.size}, Energy: {breed.energy}, Grooming: {breed.grooming}
+        </p>
+        <a href={`/breeds/${encodeURIComponent(breed.name)}`}className="view-btn">
+       View Details →
+        </a>
+      </div>
+    ))
+  )}
+</div>
+ 
     </div>
   );
 }

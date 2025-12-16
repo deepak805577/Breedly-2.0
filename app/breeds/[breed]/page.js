@@ -4,6 +4,7 @@ import { useParams, useRouter } from "next/navigation";
 import { breeds } from "../../data/breeds";
 
 
+
 export default function BreedDetailPage() {
   const params = useParams();
   const router = useRouter();

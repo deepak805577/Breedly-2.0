@@ -10,7 +10,15 @@ export default function Footer() {
     pathname.startsWith("/results") ||
     pathname.startsWith("/adoption-guide")||
     pathname.startsWith("/adoption-success")||
-    pathname.startsWith("/breeds");
+    pathname.startsWith("/breeds")||
+    pathname.startsWith("/login")||
+    pathname.startsWith("/my-dog")||
+    pathname.startsWith("/food-guide")||
+    pathname.startsWith("/health-guide");
+
+    
+
+    
 
   // ✅ IMPORTANT: stop rendering completely
   if (hideFooter) return null;

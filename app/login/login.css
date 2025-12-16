@@ -1,12 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
 
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Montserrat', sans-serif;
-}
-
 .login-page{
     background-color:#fff9f2;
     display: flex;
@@ -71,7 +64,7 @@ font-weight: 500;
 .btn{
     width: 100%;
     height: 48px;
-    background: #fd8617;
+    background: #866e54;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, .1);
     border: none;
@@ -113,7 +106,7 @@ font-weight: 500;
     left: -250%;
     width: 300%;
     height: 100%;
-    background: #fd8617;
+    background: #866e54;
     border-radius: 150px;
     z-index: 2;
     transition: 1.8s ease-in-out;
@@ -133,6 +126,7 @@ font-weight: 500;
     color: #fff;
     z-index: 2;
     transition: .6s ease-in-out;
+    text-align: center;
 }
 .toggle-panel.toggle-left{
     left: 0;
@@ -198,7 +192,6 @@ form{
         border-radius: 30px;
         width: 400px;
         margin-top: 0;
-        margin-bottom: 200px;
         
     }
 
@@ -302,10 +295,6 @@ form{
       transition: 0.4s ease-in-out !important;
     }
     
-    .container .form-box.register{
-      visibility: hidden;
-      transition: 0.4s ease-in-out !important;
-    }
     .toggle-panel {
         width: 100%;
         transition: 0.4s ease-in-out !important;

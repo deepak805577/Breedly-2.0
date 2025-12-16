@@ -13,7 +13,13 @@ export default function Navbar() {
     pathname.startsWith("/results")||
     pathname.startsWith("/adoption-guide")||
     pathname.startsWith("/adoption-success")||
-    pathname.startsWith("/breeds");
+    pathname.startsWith("/breeds")||
+    pathname.startsWith("/login")||
+    pathname.startsWith("/my-dog")||
+    pathname.startsWith("/food-guide")||
+    pathname.startsWith("/health-guide");
+
+    
 
 
   // ✅ IMPORTANT: stop rendering completely
@@ -56,6 +62,7 @@ export default function Navbar() {
           <li><Link href="/breed-selector">Breed Selector</Link></li>
           <li><Link href="/breeds">Breeds</Link></li>
           <li><Link href="/blog">Guides</Link></li>
+          <li><Link href="/my-dog">My Dog</Link></li>
         </ul>
 
         <div className="nav-right">
