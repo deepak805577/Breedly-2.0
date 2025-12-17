@@ -70,6 +70,26 @@
 .dog-meta li {
   margin-bottom: 6px;
 }
+.age-warning {
+  background: #fff3f3;
+  color: #c00;
+  border-radius: 10px;
+  padding: 8px 12px;
+  margin-top: 8px;
+  font-size: 0.85rem;
+}
+.daily-care-plan {
+  background: #f0f9ff;
+  border-radius: 12px;
+  padding: 10px 12px;
+  margin-top: 10px;
+  font-size: 0.85rem;
+  color: #0b63d4;
+}
+.daily-care-plan ul {
+  margin: 0;
+  padding-left: 18px;
+}
 
 /* Buttons */
 .primary-btn {
@@ -130,6 +150,20 @@
 /* Add More */
 .add-more {
   margin-top: 30px;
+}
+.dog-card.active {
+  border: 2px solid #4e148c;
+  box-shadow: 0 0 0 3px rgba(78, 20, 140, 0.15);
+}
+
+.active-badge {
+  display: inline-block;
+  background: #148c30;
+  color: #fff;
+  font-size: 0.7rem;
+  padding: 4px 10px;
+  border-radius: 12px;
+  margin-bottom: 6px;
 }
 
 /* ===============================
@@ -267,6 +301,9 @@
 
   .card-actions {
     flex-direction: column;
+  }
+  .active-badge{
+    width: 25%;
   }
 
   .primary-btn, .secondary-btn, .edit-btn, .delete-btn {

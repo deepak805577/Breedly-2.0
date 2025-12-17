@@ -20,12 +20,14 @@ export const metadata = {
      icons: { icon: "/Dog face.png" }
   }
 };
-
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        <ClientShell>{children}</ClientShell>
+        {/* ClientShell wraps all client-side interactive components */}
+        <ClientShell>
+          {children}
+        </ClientShell>
       </body>
     </html>
   );

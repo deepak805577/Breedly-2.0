@@ -1,14 +1,19 @@
 "use client";
 import "./health.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { healthData } from "../data/health";
+import { useSearchParams } from "next/navigation";
 
 export default function HealthGuidePage() {
+  const params = useSearchParams();
+  const breedFromDog = params.get("breed"); // auto-load if coming from My Dog
+const ageFromDog = Number(params.get("age")); // optional
   const [searchTerm, setSearchTerm] = useState("");
   const [suggestions, setSuggestions] = useState([]);
 
   const allBreeds = Object.keys(healthData);
 
+  // Filter breeds for search suggestions
   const matchedBreeds =
     searchTerm.trim().length > 0
       ? allBreeds.filter((b) =>
@@ -17,6 +22,13 @@ export default function HealthGuidePage() {
       : [];
 
   const selectedBreed = matchedBreeds.length === 1 ? matchedBreeds[0] : null;
+
+  // Auto-load breed from My Dog page
+  useEffect(() => {
+    if (breedFromDog) {
+      setSearchTerm(breedFromDog);
+    }
+  }, [breedFromDog]);
 
   return (
     <div className="health-guide-page">
@@ -29,7 +41,6 @@ export default function HealthGuidePage() {
             alt="Smiling Puppy"
             className="puppy-left-img"
           />
-
           <div className="health-text">
             <h1>🩺 Dog Health Guide</h1>
             <p className="slogan">Because every wag deserves a little more care 💛</p>
@@ -52,7 +63,7 @@ export default function HealthGuidePage() {
           }}
         />
 
-        {/* Suggestions */}
+        {/* Show suggestions */}
         {suggestions.length > 0 && (
           <div className="suggest-box">
             {suggestions.map((name, i) => (
@@ -68,6 +79,13 @@ export default function HealthGuidePage() {
               </p>
             ))}
           </div>
+        )}
+
+        {/* Auto-load hint if coming from My Dog */}
+        {breedFromDog && searchTerm && (
+          <p style={{ fontSize: "0.9rem", color: "#666" }}>
+            Showing health guide based on your dog’s breed 🐾
+          </p>
         )}
 
         {/* RESULTS */}
@@ -175,9 +193,11 @@ export default function HealthGuidePage() {
 function BreedHealthCard({ name, data }) {
   return (
     <div>
+      <div className="health-warning">
+        ⚠️ This guide is for educational purposes only and does not replace veterinary advice.
+      </div>
 
       <h3>{name}</h3>
-
       <img src={data.image} alt={name} />
 
       <p><strong>Lifespan:</strong> {data.lifespan}</p>
@@ -236,9 +256,7 @@ function BreedHealthCard({ name, data }) {
       </ul>
 
       <h4>🌟 Golden Rule</h4>
-      <blockquote>
-        {data.golden_rule}
-      </blockquote>
+      <blockquote>{data.golden_rule}</blockquote>
     </div>
   );
 }
