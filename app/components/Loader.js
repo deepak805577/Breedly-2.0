@@ -4,15 +4,15 @@ import "./loader.css";
 
 export default function Loader() {
   const icons = [
-    "/assets/loader/dog-icon.png",
-    "/assets/loader/dog-food.png",
-    "/assets/loader/dog-quiz.png",
-    "/assets/loader/dog-guide.png",
-    "/assets/loader/dog-training.png",
-    "/assets/loader/dog-care.png",
-    "/assets/loader/dog-house.png",
-    "/assets/loader/dog-medicine.png",
-    "/assets/loader/dog-paws.png",
+    "/assets/loader/face.png",
+    "/assets/loader/bowl.png",
+    "/assets/loader/quiz.png",
+    "/assets/loader/guide.png",
+    "/assets/loader/training.png",
+    "/assets/loader/care.png",
+    "/assets/loader/home.png",
+    "/assets/loader/medi.png",
+    "/assets/loader/paws.png",
     
   ];
 
