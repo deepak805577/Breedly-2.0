@@ -4,7 +4,6 @@ import Link from "next/link";
 import "./my-dog.css";
 import { breedCards } from "@/app/data/breed";
 
-
 export default function MyDogPage() {
   const [dogs, setDogs] = useState([]);
   const [editingId, setEditingId] = useState(null);
@@ -82,8 +81,6 @@ export default function MyDogPage() {
             + Add Your Dog
           </Link>
         </div>
-        
-        
       ) : (
         <>
           <div className="dog-grid">
@@ -191,26 +188,45 @@ export default function MyDogPage() {
                       <li>📍 City: {dog.city}</li>
                     </ul>
                     <div className="age-warning">
-  {dog.age < 1 && (
-    <p>🐶 Puppy Warning: Frequent vet visits, vaccinations, socialization & puppy diet required.</p>
-  )}
-  {dog.age >= 1 && dog.age < 7 && (
-    <p>🐕 Adult Tip: Maintain regular exercise, balanced diet & preventive care.</p>
-  )}
-  {dog.age >= 7 && (
-    <p>🦴 Senior Alert: Monitor joints, special diet, gentle exercise, frequent vet checks.</p>
-  )}
-</div>
-<div className="daily-care-plan">
-  <h4>📋 Daily Care Plan</h4>
-  <ul>
-    <li>🥗 Meals: {dog.food ? dog.food.recommended : "Check Food Guide"}</li>
-    <li>💧 Hydration: Keep fresh water available</li>
-    <li>🏃 Exercise: {dog.age < 1 ? "Short frequent play" : dog.age < 7 ? "1–2 walks/day" : "Gentle walks & light play"}</li>
-    <li>🩺 Health: Preventive care, regular vet checks</li>
-    <li>🧼 Grooming: Brushing, baths, dental & ear care</li>
-  </ul>
-</div>
+                      {dog.age < 1 && (
+                        <p>
+                          🐶 Puppy Warning: Frequent vet visits, vaccinations,
+                          socialization & puppy diet required.
+                        </p>
+                      )}
+                      {dog.age >= 1 && dog.age < 7 && (
+                        <p>
+                          🐕 Adult Tip: Maintain regular exercise, balanced diet
+                          & preventive care.
+                        </p>
+                      )}
+                      {dog.age >= 7 && (
+                        <p>
+                          🦴 Senior Alert: Monitor joints, special diet, gentle
+                          exercise, frequent vet checks.
+                        </p>
+                      )}
+                    </div>
+                    <div className="daily-care-plan">
+                      <h4>📋 Daily Care Plan</h4>
+                      <ul>
+                        <li>
+                          🥗 Meals:{" "}
+                          {dog.food ? dog.food.recommended : "Check Food Guide"}
+                        </li>
+                        <li>💧 Hydration: Keep fresh water available</li>
+                        <li>
+                          🏃 Exercise:{" "}
+                          {dog.age < 1
+                            ? "Short frequent play"
+                            : dog.age < 7
+                            ? "1–2 walks/day"
+                            : "Gentle walks & light play"}
+                        </li>
+                        <li>🩺 Health: Preventive care, regular vet checks</li>
+                        <li>🧼 Grooming: Brushing, baths, dental & ear care</li>
+                      </ul>
+                    </div>
 
                     <div className="card-actions">
                       <button

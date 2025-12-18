@@ -61,7 +61,7 @@ export default function Navbar() {
           <li><Link href="/">Home</Link></li>
           <li><Link href="/breed-selector">Breed Selector</Link></li>
           <li><Link href="/breeds">Breeds</Link></li>
-          <li><Link href="/blog">Guides</Link></li>
+         { /*<li><Link href="/blog">Guides</Link></li>*/}
           <li><Link href="/my-dog">My Dog</Link></li>
         </ul>
 
@@ -72,11 +72,11 @@ export default function Navbar() {
 
       {/* MOBILE BOTTOM NAV */}
       <div className={`bottom-nav ${hideNavbar ? "nav-hidden" : ""}`}>
-        <NavItem href="/" label="Home" icon="home" pathname={pathname} />
-        <NavItem href="/breed-selector" label="Select" icon="quiz" pathname={pathname} />
-        <NavItem href="/breeds" label="Breeds" icon="info" pathname={pathname} />
-        <NavItem href="/my-dog" label="My Dog" icon="paw" pathname={pathname} />
-        <NavItem href="/login" label="Profile" icon="login" pathname={pathname} />
+        <NavItem href="/" label="Home" icon="home-icon" pathname={pathname} />
+        <NavItem href="/breed-selector" label="Select" icon="quiz-icon" pathname={pathname} />
+        <NavItem href="/breeds" label="Breeds" icon="breed-icon" pathname={pathname} />
+        <NavItem href="/my-dog" label="My Dog" icon="paw-icon" pathname={pathname} />
+        <NavItem href="/login" label="Profile" icon="login-icon" pathname={pathname} />
       </div>
     </>
   );

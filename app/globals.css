@@ -220,10 +220,24 @@ body {
 
 /* HERO */
 .hero {
-  padding: 80px 16px;
+  position: relative; /* required for ::after positioning */
+  padding: 80px 16px 10px; /* shorthand for top, left/right, bottom */
   background: linear-gradient(180deg, #f8fbff, #ffffff);
-  margin: 0%;
+  margin: 0;
+
 }
+
+.hero::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, #f3f0e6 100%);
+  pointer-events: none;
+}
+
 
 .hero-content {
   max-width: 720px;
@@ -245,6 +259,32 @@ body {
   font-size: 1.1rem;
   color: var(--muted);
 }
+.hero-inner {
+  max-width: 1100px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+}
+
+.hero-image img {
+  width: 100%;
+  max-width: 420px;
+  margin: auto;
+  animation: floatDog 4s ease-in-out infinite;
+}
+
+@keyframes floatDog {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@media (max-width: 768px) {
+  .hero-inner {
+    grid-template-columns: 1fr;
+  }
+}
+
 
 .hero-actions {
   margin-top: 32px;
@@ -298,6 +338,103 @@ button:focus-visible {
 .why-choose{
   margin: 20px;
 }
+.care-rotator {
+  text-align: center;
+}
+
+.rotator-card {
+  background: white;
+  max-width: 420px;
+  margin: auto;
+  padding: 32px;
+  border-radius: 20px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.06);
+  animation: fadeSlide 0.6s ease;
+}
+
+.rotator-icon {
+  font-size: 2.2rem;
+}
+
+.breed-strip {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+
+  /* fade edges */
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 12%,
+    black 88%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 12%,
+    black 88%,
+    transparent 100%
+  );
+}
+
+.breed-track {
+  display: flex;
+  width: max-content;
+  gap: 24px;
+  animation: scrollBreeds 10s linear infinite;
+}
+
+@keyframes scrollBreeds {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.breed {
+  background: white;
+  padding: 14px 22px;
+  border-radius: 999px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.05);
+  white-space: nowrap;
+  font-weight: 500;
+}
+.breed-strip:hover .breed-track {
+  animation-play-state: paused;
+}
+@media (max-width: 768px) {
+  .breed-track {
+    animation-duration: 35s;
+  }
+}
+
+@keyframes scrollBreeds {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+@keyframes fadeSlide {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 30px rgba(0,0,0,0.08);
+}
+
+.btn-primary:active {
+  transform: scale(0.96);
+}
+
 .how-breedly{
   margin: 20px;
 }
@@ -357,7 +494,26 @@ button:focus-visible {
   color: var(--muted);
   margin: 0.25rem 0 0;
 }
+.quiz-preview {
+background: #f8f6f1;
+border-radius: 24px;
+padding: 32px;
+text-align: center;
+}
 
+
+.quiz-questions {
+list-style: none;
+padding: 0;
+margin: 24px 0;
+}
+
+
+.quiz-questions li {
+margin-bottom: 12px;
+font-size: 0.95rem;
+color: #6b5f52;
+}
 
 .card {
   background: var(--surface);
@@ -669,7 +825,7 @@ footer {
     bottom: 0;
     left: 0;
     width: 100%;
-    background: #fff;
+    background:transparent;
     border-top: 1px solid #e5e7eb;
     justify-content: space-around;
     padding: 8px 0;
@@ -678,8 +834,9 @@ footer {
 
   .bottom-nav a {
     text-decoration: none;
-    color: #a67b5b;
+    color: #000000;
     font-size: 11px;
+    font-weight: 700;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -698,7 +855,6 @@ footer {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  background: #fff;
   border-top: 1px solid #e5e7eb;
   padding: 10px 0 env(safe-area-inset-bottom);
 }
@@ -707,7 +863,6 @@ footer {
   flex: 1;
   text-align: center;
   font-size: 11px;
-  color: #a67b5b;
   text-decoration: none;
 }
 

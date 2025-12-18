@@ -1,25 +1,29 @@
 "use client";
+export const dynamic = "force-dynamic";
+
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Loader from "./components/Loader";
 
-
 export default function ClientShell({ children }) {
   const [mounted, setMounted] = useState(false);
+  const pathname = usePathname();
 
-  // Ensures everything runs only on client
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  if (!mounted) return null; // Avoid SSR mismatch
+  if (!mounted) return null;
 
   return (
     <>
-      <Loader /> {/* Always on top */}
-      <Navbar />
-      <main className="page-content">{children}</main>
+      <Loader />
+      <Navbar key={`nav-${pathname}`} />
+      <main className="page-content" key={pathname}>
+        {children}
+      </main>
       <Footer />
     </>
   );

@@ -84,7 +84,7 @@
   padding: 10px 12px;
   margin-top: 10px;
   font-size: 0.85rem;
-  color: #0b63d4;
+  color: #4982cd;
 }
 .daily-care-plan ul {
   margin: 0;
@@ -152,7 +152,7 @@
   margin-top: 30px;
 }
 .dog-card.active {
-  border: 2px solid #4e148c;
+  border: 2px solid #735636;
   box-shadow: 0 0 0 3px rgba(78, 20, 140, 0.15);
 }
 

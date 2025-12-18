@@ -139,14 +139,11 @@
       text-align: center;
       padding: 40px 20px;
       color: #888;
-      
+       border-style: none;
+        background: transparent;
       font-size: 0.9rem;
     }
-    footer{
-        border-style: none;
-        background: transparent;
-    }
-
+    
     .breed-health-search {
       text-align: center;
       padding: 40px 20px;
@@ -426,8 +423,5 @@
   .cute img {
     width: 110px;
   }
-}
-nav {
-  display: none !important;
 }
 

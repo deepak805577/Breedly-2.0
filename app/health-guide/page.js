@@ -2,16 +2,22 @@
 import "./health.css";
 import { useState, useEffect } from "react";
 import { healthData } from "../data/health";
-import { useSearchParams } from "next/navigation";
 
 export default function HealthGuidePage() {
-  const params = useSearchParams();
-  const breedFromDog = params.get("breed"); // auto-load if coming from My Dog
-const ageFromDog = Number(params.get("age")); // optional
   const [searchTerm, setSearchTerm] = useState("");
   const [suggestions, setSuggestions] = useState([]);
 
   const allBreeds = Object.keys(healthData);
+
+  // Auto-load dog from localStorage (like Food Guide)
+  useEffect(() => {
+    const dogs = JSON.parse(localStorage.getItem("breedlyDogs")) || [];
+    const activeId = localStorage.getItem("activeDogId");
+    if (!activeId || dogs.length === 0) return;
+    const activeDog = dogs.find((d) => d.id === activeId);
+    if (!activeDog) return;
+    setSearchTerm(activeDog.breed);
+  }, []);
 
   // Filter breeds for search suggestions
   const matchedBreeds =
@@ -23,16 +29,16 @@ const ageFromDog = Number(params.get("age")); // optional
 
   const selectedBreed = matchedBreeds.length === 1 ? matchedBreeds[0] : null;
 
-  // Auto-load breed from My Dog page
+  // Reset scroll / overflow on unmount to prevent layout issues
   useEffect(() => {
-    if (breedFromDog) {
-      setSearchTerm(breedFromDog);
-    }
-  }, [breedFromDog]);
+    return () => {
+      document.body.style.overflow = "auto";
+      window.scrollTo(0, 0);
+    };
+  }, []);
 
   return (
     <div className="health-guide-page">
-
       {/* HEADER */}
       <header className="health-header">
         <div className="health-header-content">
@@ -63,7 +69,7 @@ const ageFromDog = Number(params.get("age")); // optional
           }}
         />
 
-        {/* Show suggestions */}
+        {/* Suggestions */}
         {suggestions.length > 0 && (
           <div className="suggest-box">
             {suggestions.map((name, i) => (
@@ -81,8 +87,8 @@ const ageFromDog = Number(params.get("age")); // optional
           </div>
         )}
 
-        {/* Auto-load hint if coming from My Dog */}
-        {breedFromDog && searchTerm && (
+        {/* Auto-load hint */}
+        {searchTerm && (
           <p style={{ fontSize: "0.9rem", color: "#666" }}>
             Showing health guide based on your dog’s breed 🐾
           </p>
