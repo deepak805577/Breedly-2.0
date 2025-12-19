@@ -72,25 +72,26 @@ body {
   display: none;
 }
 .navbar.scrolled {
-  background: rgba(255, 255, 255, 0.9);
+  background: transparent;
   backdrop-filter: blur(12px);
 }
 
 /* Navbar */
 /* Navbar container */
 .navbar {
-  width: 100%;
+  width: 90%;
   height: 60px;
+  border-radius: 40px;
   background: transparent;
   backdrop-filter: blur(8px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 8px 6px rgba(0, 0, 0, 0.06);
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1rem 3rem;
   position: fixed;
-  top: 0;
-  left: 0;
+  top: 10;
+ left: 60;
   z-index: 999;
   animation: slideFadeDown 0.7s ease forwards;
 }
@@ -799,6 +800,10 @@ footer {
   .navbar {
     padding: 0.8rem 1rem;
     height: 56px;
+    left: 35;
+  }
+  .navbar.scrolled{
+    top: 20;
   }
 
   .nav-center,
@@ -820,12 +825,16 @@ footer {
 
   /* -------- BOTTOM NAV -------- */
   .bottom-nav {
+    height: 55px;
     display: flex;
     position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background:transparent;
+    bottom: 10;
+    left: 40;
+    border-radius: 40px;
+    width: 80%;
+    display: flex;
+    
+    background:#6c503b;
     border-top: 1px solid #e5e7eb;
     justify-content: space-around;
     padding: 8px 0;
@@ -834,10 +843,12 @@ footer {
 
   .bottom-nav a {
     text-decoration: none;
-    color: #000000;
+    color: white;
     font-size: 11px;
     font-weight: 700;
     display: flex;
+    padding: 5;
+    padding-top: 4;
     flex-direction: column;
     align-items: center;
     gap: 4px;
@@ -845,6 +856,7 @@ footer {
 
   .bottom-nav img {
     width: 22px;
+    color: white;
   }
 
   .active-bottom {
@@ -857,6 +869,9 @@ footer {
   align-items: center;
   border-top: 1px solid #e5e7eb;
   padding: 10px 0 env(safe-area-inset-bottom);
+  box-shadow: 0 8px 6px rgba(0, 0, 0, 0.06);
+  box-shadow: #333;
+  box-sizing: border-box;
 }
 
 .bottom-nav a {
@@ -978,4 +993,9 @@ footer {
   .how-item:hover {
     transform: translateX(4px);
   }
+}
+@media (max-width: 468px){
+.navbar{
+  left: 20;
+}
 }

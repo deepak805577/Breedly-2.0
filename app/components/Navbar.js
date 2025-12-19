@@ -72,11 +72,11 @@ export default function Navbar() {
 
       {/* MOBILE BOTTOM NAV */}
       <div className={`bottom-nav ${hideNavbar ? "nav-hidden" : ""}`}>
-        <NavItem href="/" label="Home" icon="home-icon" pathname={pathname} />
-        <NavItem href="/breed-selector" label="Select" icon="quiz-icon" pathname={pathname} />
-        <NavItem href="/breeds" label="Breeds" icon="breed-icon" pathname={pathname} />
-        <NavItem href="/my-dog" label="My Dog" icon="paw-icon" pathname={pathname} />
-        <NavItem href="/login" label="Profile" icon="login-icon" pathname={pathname} />
+        <NavItem href="/" label="Home" icon="home-icon(1)" pathname={pathname} />
+        <NavItem href="/breed-selector" label="Select" icon="quiz-icon(1)" pathname={pathname} />
+        <NavItem href="/breeds" label="Breeds" icon="breed-icon(1)" pathname={pathname} />
+        <NavItem href="/my-dog" label="My Dog" icon="paw-icon(1)" pathname={pathname} />
+        <NavItem href="/login" label="Profile" icon="login-icon(1)" pathname={pathname} />
       </div>
     </>
   );

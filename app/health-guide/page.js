@@ -2,24 +2,31 @@
 import "./health.css";
 import { useState, useEffect } from "react";
 import { healthData } from "../data/health";
+import { useSearchParams } from "next/navigation";
+
 
 export default function HealthGuidePage() {
-  const [searchTerm, setSearchTerm] = useState("");
+  const params = useSearchParams();
+
+  const breedFromUrl = params.get("breed");
+  const ageFromUrl = params.get("age");
+
+  const [searchTerm, setSearchTerm] = useState(breedFromUrl || "");
   const [suggestions, setSuggestions] = useState([]);
+
+  // Load active dog from localStorage (fallback)
+  useEffect(() => {
+    if (breedFromUrl) return;
+
+    const dogs = JSON.parse(localStorage.getItem("breedlyDogs")) || [];
+    const activeId = localStorage.getItem("activeDogId");
+    const activeDog = dogs.find((d) => d.id === activeId);
+
+    if (activeDog) setSearchTerm(activeDog.breed);
+  }, [breedFromUrl]);
 
   const allBreeds = Object.keys(healthData);
 
-  // Auto-load dog from localStorage (like Food Guide)
-  useEffect(() => {
-    const dogs = JSON.parse(localStorage.getItem("breedlyDogs")) || [];
-    const activeId = localStorage.getItem("activeDogId");
-    if (!activeId || dogs.length === 0) return;
-    const activeDog = dogs.find((d) => d.id === activeId);
-    if (!activeDog) return;
-    setSearchTerm(activeDog.breed);
-  }, []);
-
-  // Filter breeds for search suggestions
   const matchedBreeds =
     searchTerm.trim().length > 0
       ? allBreeds.filter((b) =>
@@ -29,13 +36,7 @@ export default function HealthGuidePage() {
 
   const selectedBreed = matchedBreeds.length === 1 ? matchedBreeds[0] : null;
 
-  // Reset scroll / overflow on unmount to prevent layout issues
-  useEffect(() => {
-    return () => {
-      document.body.style.overflow = "auto";
-      window.scrollTo(0, 0);
-    };
-  }, []);
+  const ageGroup = ageFromUrl ? getAgeGroup(Number(ageFromUrl)) : null;
 
   return (
     <div className="health-guide-page">
@@ -106,10 +107,12 @@ export default function HealthGuidePage() {
             {searchTerm === "" ? (
               <p>🐶 Start typing a breed name…</p>
             ) : selectedBreed ? (
-              <BreedHealthCard
-                name={selectedBreed}
-                data={healthData[selectedBreed]}
-              />
+             <BreedHealthCard
+  name={selectedBreed}
+  data={healthData[selectedBreed]}
+  ageGroup={ageGroup}
+/>
+
             ) : matchedBreeds.length > 1 ? (
               <p>✨ Keep typing to narrow the breed…</p>
             ) : (
@@ -196,16 +199,44 @@ export default function HealthGuidePage() {
 // ============================================================
 //                    BREED HEALTH CARD
 // ============================================================
-function BreedHealthCard({ name, data }) {
+function BreedHealthCard({ name, data, ageGroup }) {
   return (
     <div>
       <div className="health-warning">
-        ⚠️ This guide is for educational purposes only and does not replace veterinary advice.
+        ⚠️ Educational only — not a vet replacement
       </div>
 
       <h3>{name}</h3>
+
+      {ageGroup && (
+        <p className="age-context">
+          Showing guidance for a <strong>{ageGroup}</strong> dog 🐾
+        </p>
+      )}
+
       <img src={data.image} alt={name} />
 
+      {ageGroup && data.age_warnings?.[ageGroup] && (
+        <div className="age-warning-box">
+          <h4>⚠️ {ageGroup.toUpperCase()} WARNINGS</h4>
+          <ul>
+            {data.age_warnings[ageGroup].map((warn, i) => (
+              <li key={i}>{warn}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {ageGroup && data.daily_care_plan?.[ageGroup] && (
+        <div className="daily-care-box">
+          <h4>🗓️ Daily Care Plan</h4>
+          <p><strong>Meals:</strong> {data.daily_care_plan[ageGroup].meals}</p>
+          <p><strong>Exercise:</strong> {data.daily_care_plan[ageGroup].exercise}</p>
+          <p><strong>Grooming:</strong> {data.daily_care_plan[ageGroup].grooming}</p>
+          <p><strong>Notes:</strong> {data.daily_care_plan[ageGroup].notes}</p>
+        </div>
+      )}
+  
       <p><strong>Lifespan:</strong> {data.lifespan}</p>
       <p><strong>Weight:</strong> {data.weight}</p>
 
