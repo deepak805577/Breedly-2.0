@@ -35,7 +35,7 @@ export default function HomePage() {
         text.textContent = tips[index].text;
         icon.textContent = tips[index].icon;
       }
-    }, 500);
+    }, 1000);
     const track = document.getElementById("breedTrack");
     let offset = 0;
     let speed = 0.5; // lower = slower
@@ -200,20 +200,34 @@ export default function HomePage() {
       <section className="breed-strip fade-in">
         <h2 className="section-title">Popular Breeds on Breedly</h2>
         <div className="breed-track">
-          <div className="breed">🐕 Labrador</div>
-          <div className="breed">🐩 Poodle</div>
-          <div className="breed">🐕‍🦺 German Shepherd</div>
-          <div className="breed">🐶 Beagle</div>
-          <div className="breed">🐕 Golden Retriver</div>
-          <div className="breed">🐕 Husky</div>
-          <div className="breed">🐩 Shih Tzu</div>
-          <div className="breed">🐕‍🦺 Doberman</div>
-          <div className="breed">🐶 Rottweiler</div>
-          <div className="breed">🐕 American Bully</div>
-          <div className="breed">🐕 Cane corso</div>
-          <div className="breed">🐩 Belgian Malinois</div>
-          <div className="breed">🐕‍🦺 Samoyed</div>
-          <div className="breed">🐶 Dogo aregentino</div>
+          <div className="fav-dog">
+           <img src="assets/Dogs/Labrador Retriever.jpg" alt="labrador" />🐕 Labrador</div>
+          <div className="fav-dog">
+            <img src="assets/Dogs/Poodle.jpg" alt="Happy dog illustration" />🐩 Poodle</div>
+          <div className="fav-dog">
+            <img src="assets/Dogs/German Shepherd.jpg" alt="Happy dog illustration" />🐕‍🦺 German Shepherd</div>
+          <div className="fav-dog">
+            <img src="assets/Dogs/Beagle.jpg" alt="Happy dog illustration" />🐶 Beagle</div>
+          <div className="fav-dog">
+            <img src="assets/Dogs/Golden Retriever.webp" alt="Happy dog illustration" />🐕 Golden Retriver</div>
+          <div className="fav-dog">
+            <img src="assets/Dogs/Siberian Husky.jpg" alt="Happy dog illustration" />🐕 Husky</div>
+          <div className="fav-dog">
+            <img src="assets/Dogs/Shih Tzu.jpg" alt="Happy dog illustration" />🐩 Shih Tzu</div>
+          <div className="fav-dog">
+            <img src="assets/Dogs/Doberman Pinscher.jpg" alt="Happy dog illustration" />🐕‍🦺 Doberman</div>
+          <div className="fav-dog">
+            <img src="assets/Dogs/Rottweiler.jpg" alt="Happy dog illustration" />🐶 Rottweiler</div>
+          <div className="fav-dog">
+            <img src="assets/Dogs/American Bully.jpg" alt="Happy dog illustration" />🐕 American Bully</div>
+          <div className="fav-dog">
+            <img src="assets/Dogs/Cane Corso.jpg" alt="Happy dog illustration" />🐕 Cane corso</div>
+          <div className="fav-dog">
+            <img src="assets/Dogs/Belgian Malinois.jpg" alt="Happy dog illustration" />🐩 Belgian Malinois</div>
+          <div className="fav-dog">
+            <img src="assets/Dogs/Samoyed.jpg" alt="Happy dog illustration" />🐕‍🦺 Samoyed</div>
+          <div className="fav-dog">
+            <img src="assets/Dogs/Dogo Argentino.jpg" alt="Happy dog illustration" />🐶 Dogo aregentino</div>
         </div>
       </section>
 

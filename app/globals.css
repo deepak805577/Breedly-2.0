@@ -394,7 +394,15 @@ button:focus-visible {
     transform: translateX(-50%);
   }
 }
-
+.fav-dog img{
+  border-radius: 5px;
+  width: 170px;
+  height: 220px;
+}
+.fav-dog{
+  display: flex;
+  flex-direction: column;
+}
 .breed {
   background: white;
   padding: 14px 22px;
