@@ -382,7 +382,7 @@ button:focus-visible {
 .breed-track {
   display: flex;
   width: max-content;
-  gap: 24px;
+  gap: 44px;
   animation: scrollBreeds 10s linear infinite;
 }
 

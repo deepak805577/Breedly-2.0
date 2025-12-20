@@ -1,6 +1,6 @@
 export const healthData = {
   "Golden Retriever": {
-    image: "/assets/Dogs/Golden Retriever.webp",
+    image: "/assets/Dogs/Golden Retriever.jpg",
     lifespan: "10–12 years",
     weight: "25–35 kg",
     nature: ["Friendly", "Intelligent", "Family-oriented", "Active", "Obedient"],

@@ -2,12 +2,14 @@
 import "./breed.css";
 import { useParams, useRouter } from "next/navigation";
 import { breeds } from "../../data/breeds";
-
+import { useState } from "react";
 
 
 export default function BreedDetailPage() {
   const params = useParams();
   const router = useRouter();
+  const [videoError, setVideoError] = useState(false);
+
   const breedName = decodeURIComponent(params.breed)
     .replace(/-/g, " ")
     .trim()
@@ -148,15 +150,21 @@ export default function BreedDetailPage() {
 
       </div>
 
-      {/* Video Section */}
-      {breed.video && (
-        <div className="video-section">
-          <h2>🎥 Watch this Breed in Action!</h2>
-          <video controls playsInline>
-            <source src={breed.video} type="video/mp4" />
-          </video>
-        </div>
-      )}
+      
+    {/* Video Section */}
+{breed.video && !videoError && (
+  <div className="video-section">
+    <h2>🎥 Watch this Breed in Action!</h2>
+    <video
+      controls
+      playsInline
+      onError={() => setVideoError(true)} // auto-remove on failure
+    >
+      <source src={breed.video} type="video/mp4" />
+    </video>
+  </div>
+)}
+
 
       {/* Fun Facts */}
       {breed.funFacts && (
