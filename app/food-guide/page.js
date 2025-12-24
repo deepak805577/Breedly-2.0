@@ -236,7 +236,6 @@ export default function FoodGuidePage() {
                 {dogWeight && (
                   <div className="monthly-cost-box">
                     <h3>💸 Monthly Food Estimate</h3>
-
                     {(() => {
                       const estimate = estimateMonthlyCost(dogWeight);
                       if (!estimate) return null;

@@ -62,6 +62,8 @@ export default function Navbar() {
           <li><Link href="/breed-selector">Breed Selector</Link></li>
           <li><Link href="/breeds">Breeds</Link></li>
          { /*<li><Link href="/blog">Guides</Link></li>*/}
+         <li><Link href="/health-guide">Health Guide</Link></li>
+         <li><Link href="/food-guide">Food Guide</Link></li>
           <li><Link href="/my-dog">My Dog</Link></li>
         </ul>
 

@@ -1,9 +1,9 @@
 "use client";
+
 import "./breeds.css";
 import { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
 import { breedCards } from "../data/breed";
-
 
 export default function BreedsPage() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -11,29 +11,57 @@ export default function BreedsPage() {
   const [energyFilter, setEnergyFilter] = useState("");
   const [groomingFilter, setGroomingFilter] = useState("");
   const [expenseFilter, setExpenseFilter] = useState("");
-
+  const [groupFilter, setGroupFilter] = useState("");
+  const [idealOwnerFilter, setIdealOwnerFilter] = useState("");
+  const [temperamentFilter, setTemperamentFilter] = useState("");
   const [loading, setLoading] = useState(true);
 
-useEffect(() => {
-  const timer = setTimeout(() => setLoading(false), 700);
-  return () => clearTimeout(timer);
-}, []);
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 700);
+    return () => clearTimeout(timer);
+  }, []);
 
   const filteredBreeds = useMemo(() => {
     return breedCards.filter((breed) => {
-      const matchesSearch = breed.name
-        .toLowerCase()
-        .includes(searchTerm.toLowerCase());
+      const search = searchTerm.toLowerCase();
+      const temperamentSearch = temperamentFilter.toLowerCase();
+
+      const matchesSearch =
+        breed.name.toLowerCase().includes(search) ||
+        breed.aliases?.toLowerCase().includes(search);
+
+      const matchesTemperament =
+        !temperamentFilter ||
+        breed.temperament?.toLowerCase().includes(temperamentSearch);
+
+      const size = breed.size?.toLowerCase() || "";
+      const energy = breed.energy?.toLowerCase() || "";
+      const grooming = breed.grooming?.toLowerCase() || "";
+      const expense = breed.expense?.toLowerCase() || "";
+      const group = breed.group?.toLowerCase() || "";
+      const idealOwner = breed.idealOwner?.toLowerCase() || "";
 
       return (
         matchesSearch &&
-        (!sizeFilter || breed.size === sizeFilter) &&
-        (!energyFilter || breed.energy === energyFilter) &&
-        (!groomingFilter || breed.grooming === groomingFilter) &&
-        (!expenseFilter || breed.expense === expenseFilter)
+        matchesTemperament &&
+        (!sizeFilter || size.includes(sizeFilter)) &&
+        (!energyFilter || energy === energyFilter) &&
+        (!groomingFilter || grooming === groomingFilter) &&
+        (!expenseFilter || expense === expenseFilter) &&
+        (!groupFilter || group === groupFilter) &&
+        (!idealOwnerFilter || idealOwner.includes(idealOwnerFilter))
       );
     });
-  }, [searchTerm, sizeFilter, energyFilter, groomingFilter, expenseFilter]);
+  }, [
+    searchTerm,
+    sizeFilter,
+    energyFilter,
+    groomingFilter,
+    expenseFilter,
+    groupFilter,
+    idealOwnerFilter,
+    temperamentFilter,
+  ]);
 
   const clearFilters = () => {
     setSearchTerm("");
@@ -41,26 +69,23 @@ useEffect(() => {
     setEnergyFilter("");
     setGroomingFilter("");
     setExpenseFilter("");
+    setGroupFilter("");
+    setIdealOwnerFilter("");
+    setTemperamentFilter("");
   };
 
   return (
     <div className="breeds-page">
-      {/* Background
-      <div className="bg-img-wrapper">
-        <img src="/assets/bgg1.png" alt="Background" />
-      </div> */
-}
-      {/* Header */}
       <header className="breeds-header">
         <h1>🐾 Browse Dog Breeds</h1>
-        <p>Explore breeds based on lifestyle, space & care needs</p>
+        <p>Find your perfect match based on lifestyle & care needs</p>
       </header>
 
       {/* Search */}
       <div className="search-box">
         <input
           type="text"
-          placeholder="Search by breed name…"
+          placeholder="Search breed or alias…"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
@@ -68,8 +93,17 @@ useEffect(() => {
 
       {/* Filters */}
       <div className="filters sticky">
+        <select value={groupFilter} onChange={(e) => setGroupFilter(e.target.value)}>
+          <option value="">Group</option>
+          <option value="companion">Companion</option>
+          <option value="sporting">Sporting</option>
+          <option value="working">Working</option>
+          <option value="toy">Toy</option>
+          <option value="herding">Herding</option>
+        </select>
+
         <select value={sizeFilter} onChange={(e) => setSizeFilter(e.target.value)}>
-          <option value="">All Sizes</option>
+          <option value="">Size</option>
           <option value="small">Small</option>
           <option value="medium">Medium</option>
           <option value="large">Large</option>
@@ -90,12 +124,31 @@ useEffect(() => {
         </select>
 
         <select value={expenseFilter} onChange={(e) => setExpenseFilter(e.target.value)}>
-          <option value="">Monthly Cost</option>
-          <option value="low">₹1k – ₹3k</option>
-          <option value="moderate">₹3k – ₹5k</option>
-          <option value="high">₹5k – ₹8k</option>
-          <option value="very high">₹8k+</option>
+          <option value="">Cost</option>
+          <option value="low">Low</option>
+          <option value="standard">Standard</option>
+          <option value="high">High</option>
+          <option value="very high">Very High</option>
         </select>
+
+        <select
+          value={idealOwnerFilter}
+          onChange={(e) => setIdealOwnerFilter(e.target.value)}
+        >
+          <option value="">Ideal Owner</option>
+          <option value="apartment">Apartment</option>
+          <option value="family">Family</option>
+          <option value="first-time">First-time Owner</option>
+          <option value="active">Active Owner</option>
+        </select>
+
+        <input
+          type="text"
+          className="temperament-input"
+          placeholder="Temperament (friendly, calm…) "
+          value={temperamentFilter}
+          onChange={(e) => setTemperamentFilter(e.target.value)}
+        />
 
         <button className="clear-btn" onClick={clearFilters}>
           Clear
@@ -108,36 +161,53 @@ useEffect(() => {
       </div>
 
       {/* Grid */}
-     <div className="breed-grid">
-  {loading ? (
-    Array.from({ length: 8 }).map((_, i) => (
-      <div key={i} className="breed-card skeleton">
-        <div className="skeleton-img"></div>
-        <div className="skeleton-line"></div>
-        <div className="skeleton-line small"></div>
-      </div>
-    ))
-  ) : filteredBreeds.length === 0 ? (
-    <div className="empty-state">
-    <p>No breeds match your filters.</p>
-       <button onClick={clearFilters}>Reset Filters</button>
+      <div className="breed-grid">
+        {loading ? (
+          Array.from({ length: 8 }).map((_, i) => (
+            <div key={i} className="breed-card skeleton">
+              <div className="skeleton-img"></div>
+              <div className="skeleton-line"></div>
+              <div className="skeleton-line small"></div>
+            </div>
+          ))
+        ) : filteredBreeds.length === 0 ? (
+          <div className="empty-state">
+            <p>No breeds match your filters.</p>
+            <button onClick={clearFilters}>Reset Filters</button>
           </div>
-  ) : (
-    filteredBreeds.map((breed) => (
-      <div key={breed.name} className="breed-card">
-        <img src={breed.image} alt={breed.name} />
-        <h3>{breed.name}</h3>
-        <p className="meta">
-          Size: {breed.size}, Energy: {breed.energy}, Grooming: {breed.grooming}
-        </p>
-        <a href={`/breeds/${encodeURIComponent(breed.name)}`}className="view-btn">
-       View Details →
-        </a>
+        ) : (
+          filteredBreeds.map((breed) => (
+            <div key={breed.name} className="breed-card">
+              <img src={breed.image} alt={breed.name} />
+
+              <h3>{breed.name}</h3>
+              {breed.aliases && <p className="meta">aka {breed.aliases}</p>}
+
+              <p className="meta">
+                {breed.group} • {breed.size}
+              </p>
+
+              <p className="meta">
+                Energy: {breed.energy} • Grooming: {breed.grooming}
+              </p>
+
+              <p className="meta">
+                Ideal for: {breed.idealOwner}
+              </p>
+ <p className="meta">
+                Temperament: {breed.temperament}
+              </p>
+
+              <Link
+                href={`/breeds/${encodeURIComponent(breed.name)}`}
+                className="view-btn"
+              >
+                View Details →
+              </Link>
+            </div>
+          ))
+        )}
       </div>
-    ))
-  )}
-</div>
- 
     </div>
   );
 }

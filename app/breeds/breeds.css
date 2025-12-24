@@ -99,7 +99,13 @@
   font-size: 0.9rem;
   background: white;
 }
-
+.temperament-input{
+    padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-size: 0.9rem;
+  background: white;
+}
 .clear-btn {
   padding: 10px 14px;
   border-radius: 10px;
@@ -134,9 +140,10 @@
 
 /* ---------- CARD ---------- */
 .breed-card {
-  max-width: 260px;
+  max-width: 290px;
   background: rgba(255, 248, 242, 0.95);
   border-radius: 18px;
+  height: 440px;
   padding: 16px;
   box-shadow: 0 10px 25px rgba(0,0,0,0.08);
   text-align: center;
@@ -286,7 +293,8 @@
 }
 @media (max-width: 600px) {
   .breed-card img {
-    height: 220px;
+    max-height: 220px;
+    width: 100%;
   }
 
   .breed-card h3 {
@@ -304,7 +312,20 @@
   margin-bottom: 5px;
 }
 
-
+@media (max-width: 380px){
+  .breed-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+.breed-card{
+  height: auto;
+  width: 100%;
+}
+  .breed-card img {
+    height: auto;
+    width: 100%;
+  }
+}
 
 @media (max-width: 480px) {
   .breeds-page {
@@ -326,10 +347,11 @@
     gap: 18px;
   }
 .breed-card{
-  height: 350px;
+  width: 100%;
+  height: auto;
 }
   .breed-card img {
-    height: 220px;
+    height: auto;
   }
 
   .view-btn {

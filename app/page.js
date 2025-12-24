@@ -107,6 +107,7 @@ export default function HomePage() {
       </section>
 
       <section className="why-choose fade-in">
+       
         <h2 className="section-title">Why Dog Owners Choose Breedly</h2>
 
         <div className="grid-3">

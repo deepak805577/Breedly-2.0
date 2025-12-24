@@ -1,3 +1,4 @@
+/* ---------------- GLOBAL ---------------- */
 body {
   font-family: "Fredoka", sans-serif;
   margin: 0;
@@ -8,6 +9,7 @@ body {
   background: var(--bg);
   color: var(--text);
 }
+
 @font-face {
   font-family: "Dogica";
   src: url("/fonts/Dogica.ttf") format("truetype");
@@ -18,25 +20,6 @@ body {
 .breed-info {
   padding: 40px 20px;
 }
-
-.bg-image-wrapper {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-  overflow: hidden;
-}
-
-.bg-image-wrapper img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0.3;
-  pointer-events: none;
-}
-
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -58,7 +41,6 @@ body {
     opacity: 1;
   }
 }
-
 .breed-info {
   position: relative;
   z-index: 2;
@@ -72,55 +54,71 @@ body {
   animation: slideUp 0.7s ease forwards;
 }
 
-.breed-info img {
+
+.breed-detail-page {
+  max-width: 900px;
+  margin: auto;
+  padding: 20px;
+}
+
+section {
+  margin-bottom: 30px;
+  animation: fadeIn 0.9s ease-in-out;
+}
+
+h2 {
+  color: #8b7a6a;
+  font-size: 1.6rem;
+  margin-bottom: 15px;
+  position: relative;
+}
+
+
+ul {
+  padding-left: 25px;
+  color: #746659;
+}
+
+ul li {
+  margin-bottom: 8px;
+}
+
+/* ---------------- BREED HERO ---------------- */
+.breed-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.breed-hero img {
   width: 100%;
-  max-width: 500px;
-  height: 400px;
+  max-width: 480px;
+  height: 100%;
+  max-height: 500px;
   object-fit: cover;
   border-radius: 20px;
   margin-bottom: 20px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
-.breed-info h1 {
-  color: #8b4e1d;
+.breed-hero h1 {
+   color: #8b4e1d;
   font-size: 2.4rem;
   margin-bottom: 10px;
-  font-family: "Baloo 2", cursive;
   position: relative;
   z-index: 1;
 }
-
-.breed-info h1::before {
-  content: "🐾";
-
-  position: relative;
-  z-index: 1 !important;
-  left: -30px;
-  top: 0;
+.breed-hero p {
+  font-size: 1rem;
+  color: #555;
 }
 
-.breed-info h1::after {
-  content: "🐶";
-  position: relative;
-  z-index: 1 !important;
-  right: -30px;
-  top: 0;
-}
-
-.breed-info h2 {
-  font-size: 1.4rem;
-  margin-bottom: 10px;
-}
-
-.breed-info .desc,
-.breed-info .traits,
-.breed-info .pros-cons,
-.breed-info .grooming,
-.breed-info .exercise,
-.breed-info .notes,
-.breed-info .lifespan,
-.breed-info .bestfor {
+/* ---------------- INFO BOXES ---------------- */
+.basic-info, .quick-overview, .personality, .appearance, .exercise,
+.training, .grooming, .lifestyle, .history, .fun-facts, .faqs,
+.owner-reviews, .final-verdict {
+ 
   text-align: left;
   margin: 20px 0;
   animation: fadeIn 1s ease-in-out;
@@ -130,29 +128,29 @@ body {
   border-radius: 12px;
 }
 
+section h3 {
+  margin-top: 15px;
+  margin-bottom: 10px;
+  color: #a35d1b;
+  font-size: 1.3rem;
+}
 .breed-info ul {
   padding-left: 20px;
-  color: #333;
+  color: #555;
 }
-
 .breed-info ul li {
   margin-bottom: 8px;
 }
 
-.video-section {
-  padding-bottom: 20px;
-  position: relative;
-  z-index: 2;
-  margin-top: 40px;
-  text-align: center;
-  animation: fadeIn 1.2s ease-in-out;
+section p {
+  margin-bottom: 10px;
+  color: #555;
 }
 
-.video-section h2 {
-  color: #8b4e1d;
-  font-size: 1.6rem;
-  margin-bottom: 20px;
-  font-family: "Fredoka", sans-serif;
+/* ---------------- VIDEO SECTION ---------------- */
+.video-section {
+  margin-top: 40px;
+  text-align: center;
 }
 
 .video-section video {
@@ -160,7 +158,7 @@ body {
   max-width: 500px;
   height: 400px;
   border-radius: 16px;
-  box-shadow: 0 12px 18px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 12px 20px rgba(0,0,0,0.15);
   background-color: #000;
   transition: transform 0.3s ease;
 }
@@ -169,43 +167,13 @@ body {
   transform: scale(1.02);
 }
 
-.back-links {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  margin: 40px auto;
-}
-
-.back-link {
-  background: #ff7a00;
-  color: #fff;
-  padding: 12px 24px;
-  text-decoration: none;
-  border-radius: 30px;
-  font-weight: 600;
-  transition: all 0.3s ease;
-}
-
-.back-link:hover {
-  background: #ffaa3c;
-  transform: scale(1.05);
-}
+/* ---------------- NEXT STEPS ---------------- */
 .next-steps {
   margin-top: 50px;
-  padding: 30px;
+  padding: 25px;
   background: linear-gradient(135deg, #fff3e6, #fef9f4);
   border-radius: 20px;
-  margin-bottom: 20px;
   text-align: center;
-}
-
-.next-steps h2 {
-  margin-bottom: 10px;
-}
-
-.next-steps p {
-  color: #555;
-  margin-bottom: 20px;
 }
 
 .step-actions {
@@ -216,73 +184,52 @@ body {
 }
 
 .step-actions button {
-  padding: 12px 18px;
+  padding: 12px 20px;
   border-radius: 12px;
   background: #645040;
   border: none;
   color: #fff;
   font-weight: 600;
   cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .step-actions button:hover {
   background: #ab8b6f;
 }
 
-@media (max-width: 600px) {
-  .breed-info h1 {
-    font-size: 1.8rem;
-  }
-
-  .video-section h2 {
-    font-size: 1.3rem;
-  }
-
-  .video-section video {
-    height: auto;
-    max-height: 300px;
-    border-radius: 12px;
-  }
-
-  .breed-info img {
-    width: 100%;
-    height: auto;
-  }
-}
-/* 🐶 Quote Banner */
+/* ---------------- DOG QUOTE ---------------- */
 .dog-quote-banner {
-  position: absolute;
-  margin: 0;
+  margin: 30px 0;
   background: transparent;
   padding: 15px 10px;
   width: 100%;
   color: #8b4e1d;
   font-size: 1.3rem;
-  font-family: "Baloo 2", cursive;
-  border-bottom: 3px dashed #ffcc99;
+  border-bottom: 2px dashed #efa152;
 }
 
-html,
-body {
-  height: 100%;
-  overflow-y: auto;
-  scroll-behavior: smooth;
-}
+/* ---------------- RESPONSIVE ---------------- */
+@media (max-width: 768px) {
+  .breed-hero {
+    flex-direction: column;
+  }
 
-.bg-image-wrapper {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  z-index: -1;
-  overflow: hidden;
-  pointer-events: none;
-}
+  .breed-hero img {
+    height: auto;
+    max-height: 300px;
+  }
 
-.bg-image-wrapper img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0.25;
+  .video-section video {
+    height: auto;
+    max-height: 300px;
+  }
+
+  h2 {
+    font-size: 1.4rem;
+  }
+
+  section h3 {
+    font-size: 1.1rem;
+  }
 }
