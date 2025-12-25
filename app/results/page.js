@@ -506,14 +506,22 @@ export default function ResultsPage() {
         <button
           className="save-btn"
           onClick={async () => {
-            const { error } = await supabase.from('user_pets').upsert(
-              matches.map((breed, i) => ({
-                id: `result-${i}`,
-                breed_id: Object.keys(breedProfiles).indexOf(breed.name) + 1
-              }))
-            );
-            alert(error ? 'Save failed!' : '✅ Results saved to My Breedly!');
-          }}
+  try {
+    const { data, error } = await supabase
+      .from('user_favorites')
+      .insert({ user_email: 'test@breedly.com', breed_name: 'Golden Retriever' });
+    
+    if (error) {
+      console.error('ERROR:', error);  // Check browser console!
+      alert(`❌ ${error.message}`);
+    } else {
+      alert('✅ Saved Golden Retriever!');
+    }
+  } catch (e) {
+    alert(`💥 ${e.message}`);
+  }
+}}
+
         >
           💾 Save Results to My Breedly
         </button>
