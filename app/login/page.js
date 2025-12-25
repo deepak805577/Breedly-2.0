@@ -1,4 +1,5 @@
 "use client";
+import { supabase } from '@/lib/supabase';  // ADD THIS LINE
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -26,59 +27,59 @@ export default function LoginPage() {
 
   /* ---------------- LOGIN ---------------- */
   const handleLogin = async (e) => {
-    e.preventDefault();
-    try {
-      const res = await fetch("http://localhost:5000/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        cache: "no-store",
-        body: JSON.stringify(loginData),
-      });
+  e.preventDefault();
+  try {
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: loginData.email,
+      password: loginData.password,
+    });
 
-      const data = await res.json();
-
-  if (res.ok) {
-  localStorage.setItem("token", data.token);
-  localStorage.setItem("username", data.username);
-
-  const hasDog = localStorage.getItem("dogProfile");
-  if (!hasDog) {
-    router.push("/my-dog/add"); // Redirect new adopters
-  } else {
-    router.push("/"); // Normal home for returning users
-  }
-}
-
-    } catch (err) {
-      console.error(err);
-      alert("Server error");
+    if (error) {
+      alert(error.message);
+      return;
     }
-  };
+
+    // Your existing localStorage logic (unchanged)
+    localStorage.setItem("token", data.session.access_token);
+    localStorage.setItem("username", data.user.email.split('@')[0]);
+
+    const hasDog = localStorage.getItem("dogProfile");
+    if (!hasDog) {
+      router.push("/my-dog/add");
+    } else {
+      router.push("/dashboard");  // Changed to BreedLy dashboard
+    }
+  } catch (err) {
+    console.error(err);
+    alert("Login failed");
+  }
+};
+
 
   /* ---------------- REGISTER ---------------- */
   const handleRegister = async (e) => {
-    e.preventDefault();
-    try {
-      const res = await fetch("http://localhost:5000/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        cache: "no-store",
-        body: JSON.stringify(registerData),
-      });
-
-      const data = await res.json();
-
-      if (res.ok) {
-        alert("Registration successful!");
-        setIsRegister(false);
-      } else {
-        alert(data.error);
+  e.preventDefault();
+  try {
+    const { data, error } = await supabase.auth.signUp({
+      email: registerData.email,
+      password: registerData.password,
+      options: {
+        data: { username: registerData.username }
       }
-    } catch (err) {
-      console.error(err);
-      alert("Server error");
+    });
+
+    if (error) {
+      alert(error.message);
+    } else {
+      alert("✅ Registered! Now login.");
+      setIsRegister(false);
     }
-  };
+  } catch (err) {
+    console.error(err);
+    alert("Registration failed");
+  }
+};
+
 
   return (
     <div className={`login-page ${isRegister ? "active" : ""}`}>

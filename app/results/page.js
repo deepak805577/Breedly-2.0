@@ -261,34 +261,20 @@ export default function ResultsPage() {
     };
     loadFavorites();
   }, []);
- // Replace toggleFavorite too:
-const toggleFavorite = async (breedName) => {
-  // Only save real quiz matches (not hardcoded demos)
-  if (!matches.some(match => match.name === breedName)) {
-    alert('❤️ Save via Quiz Results first!');
-    return;
-  }
+  const toggleFavorite = async (breedName) => {
+    const breedId = Object.keys(breedProfiles).indexOf(breedName) + 1; // Map name to ID
+    let updated;
 
-  const current = favorites.includes(breedName);
-  
-  if (current) {
-    await supabase
-      .from('user_favorites')
-      .delete()
-      .eq('breed_name', breedName)
-      .eq('user_email', 'test@breedly.com');
-  } else {
-    await supabase
-      .from('user_favorites')
-      .insert({ 
-        user_email: 'test@breedly.com', 
-        breed_name: breedName 
-      });
-  }
-  
-  loadFavorites();
-};
+    if (favorites.includes(breedName)) {
+      updated = favorites.filter((b) => b !== breedName);
+      await supabase.from('user_pets').delete().eq('breed_id', breedId);
+    } else {
+      updated = [...favorites, breedName];
+      await supabase.from('user_pets').insert({ breed_id: breedId });
+    }
 
+    setFavorites(updated);
+  };
 
   useEffect(() => {
     const raw =
@@ -517,39 +503,34 @@ const toggleFavorite = async (breedName) => {
       </section>
 
       <div className="result-actions">
-        <button 
+       <button 
   className="save-btn"
   onClick={async () => {
     try {
-      // Save ONLY top 3 matches (user's real quiz results)
+      // Save ALL top 3 matches from quiz (dynamic!)
+      const savedBreeds = [];
+      
       for (const breed of matches.slice(0, 3)) {
-        // Skip hardcoded examples, save user's actual matches
-        if (breed.name !== 'Golden Retriever') {  // Skip demo
-          const { error } = await supabase
-            .from('user_favorites')
-            .upsert({ 
-              user_email: 'test@breedly.com', 
-              breed_name: breed.name 
-            });
-          
-          if (error) throw error;
-        }
+        const { data, error } = await supabase
+          .from('user_favorites')
+          .upsert({ 
+            user_email: 'test@breedly.com', 
+            breed_name: breed.name  // Labrador, Beagle, Pug etc.
+          });
+        
+        if (error) throw error;
+        savedBreeds.push(breed.name);
       }
       
-      // Show what was actually saved
-      const savedNames = matches.slice(0, 3)
-        .filter(b => b.name !== 'Golden Retriever')
-        .map(b => b.name);
-      
-      alert(`✅ Saved: ${savedNames.join(', ') || 'your matches'}!`);
+      alert(`✅ Saved: ${savedBreeds.join(', ')}!`);
     } catch (error) {
-      console.error('Save error:', error);
       alert(`❌ ${error.message}`);
     }
   }}
 >
-  💾 Save My Matches
+  💾 Save My Matches ({matches.length})
 </button>
+
 
         <button
           className="share-btn"
