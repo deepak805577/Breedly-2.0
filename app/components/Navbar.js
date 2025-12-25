@@ -1,11 +1,12 @@
 "use client";
-
-import { useEffect } from "react";
+import { supabase } from '@/lib/supabase';
+import { useState, useEffect } from 'react';
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 export default function Navbar() {
   const pathname = usePathname();
+    const [count, setCount] = useState(0);
 
   // 🚫 Hide navbar on immersive flows
   const hideNavbar =
@@ -23,6 +24,14 @@ export default function Navbar() {
   if (hideNavbar) return null;
 
   useEffect(() => {
+    supabase
+      .from('user_favorites')
+      .select('*', { count: 'exact', head: true })
+      .eq('user_email', 'test@breedly.com')
+      .single()
+      .then(({ count }) => setCount(count || 0));
+
+
     const nav = document.querySelector(".navbar");
     if (!nav) return;
 
@@ -74,6 +83,11 @@ export default function Navbar() {
           <li>
             <Link href="/my-dog">My Dog</Link>
           </li>
+          <a href="/dashboard" className="ml-4 bg-purple-500 text-white px-4 py-2 rounded">
+  👤 My Breedly
+</a>
+
+
         </ul>
 
         <div className="nav-right">
