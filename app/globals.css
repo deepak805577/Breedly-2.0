@@ -841,13 +841,56 @@ footer {
     border-radius: 40px;
     width: 80%;
     display: flex;
-    
     background:#6c503b;
     border-top: 1px solid #e5e7eb;
     justify-content: space-around;
     padding: 8px 0;
     z-index: 999;
   }
+/* From Uiverse.io by eslam-hany */ 
+.button-container {
+  display: flex;
+   bottom: 10;
+    left: 40;
+        width: 80%;
+   z-index: 999;
+  background-color: #6c503b;
+  height: 55px;
+   position: fixed;
+  align-items: center;
+  justify-content: space-around;
+  border-radius: 40px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px,
+    rgba(0, 73, 144, 0.5) 5px 10px 15px;
+  transition: all 0.5s;
+}
+.button-container:hover {
+  width: 90%;
+  transition: all 0.5s;
+}
+
+.button {
+  outline: 0 !important;
+  border: 0 !important;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  transition: all ease-in-out 0.3s;
+  cursor: pointer;
+}
+
+.button:hover {
+  transform: translateY(-5px);
+}
+
+.icon {
+  font-size: 20px;
+}
 
   .bottom-nav a {
     text-decoration: none;
