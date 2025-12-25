@@ -92,7 +92,7 @@ export default function Navbar() {
         <NavItem href="/login" label="Profile" icon="login-icon(1)" pathname={pathname} />
       </div>*/}
       <div className={`bottom-navbar ${hideNavbar ? "nav-hidden" : ""}`}>
-        <div class="button-container">
+        <div className="button-container">
           <Link href="/" className="button">
             <img
               src="/assets/icons/home-icon(1).png"
