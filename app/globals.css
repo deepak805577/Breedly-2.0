@@ -847,11 +847,16 @@ footer {
     padding: 8px 0;
     z-index: 999;
   }
+  .bottom-navbar{
+     display: flex;
+  justify-content: center;
+  align-items: center;
+  }
 /* From Uiverse.io by eslam-hany */ 
 .button-container {
   display: flex;
    bottom: 10;
-    left: 40;
+  
         width: 80%;
    z-index: 999;
   background-color: #6c503b;
