@@ -503,32 +503,39 @@ export default function ResultsPage() {
       </section>
 
       <div className="result-actions">
-       <button 
+     <button 
   className="save-btn"
   onClick={async () => {
     try {
-      // Save ALL top 3 matches from quiz (dynamic!)
+      // Get REAL logged-in user
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) {
+        alert('Please login first!');
+        window.location.href = '/login';
+        return;
+      }
+
+      // Save top 3 quiz matches to THIS user
       const savedBreeds = [];
-      
       for (const breed of matches.slice(0, 3)) {
-        const { data, error } = await supabase
+        const { error } = await supabase
           .from('user_favorites')
           .upsert({ 
-            user_email: 'test@breedly.com', 
-            breed_name: breed.name  // Labrador, Beagle, Pug etc.
+            user_email: user.email,  // ← REAL USER EMAIL
+            breed_name: breed.name 
           });
         
         if (error) throw error;
         savedBreeds.push(breed.name);
       }
       
-      alert(`✅ Saved: ${savedBreeds.join(', ')}!`);
+      alert(`✅ Saved ${savedBreeds.join(', ')} to My Breedly!`);
     } catch (error) {
       alert(`❌ ${error.message}`);
     }
   }}
 >
-  💾 Save My Matches ({matches.length})
+  💾 Save My Matches
 </button>
 
 

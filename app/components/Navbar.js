@@ -1,12 +1,13 @@
 "use client";
-import { supabase } from '@/lib/supabase';
-import { useState, useEffect } from 'react';
+import { supabase } from "@/lib/supabase";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 export default function Navbar() {
   const pathname = usePathname();
-    const [count, setCount] = useState(0);
+  const [username, setUsername] = useState("");
+  const [profilePic, setProfilePic] = useState("");
 
   // 🚫 Hide navbar on immersive flows
   const hideNavbar =
@@ -20,43 +21,39 @@ export default function Navbar() {
     pathname.startsWith("/food-guide") ||
     pathname.startsWith("/health-guide");
 
-  // ✅ IMPORTANT: stop rendering completely
   if (hideNavbar) return null;
 
   useEffect(() => {
-    supabase
-      .from('user_favorites')
-      .select('*', { count: 'exact', head: true })
-      .eq('user_email', 'test@breedly.com')
-      .single()
-      .then(({ count }) => setCount(count || 0));
+    // Get logged-in info from localStorage
+    const storedUsername = localStorage.getItem("username");
+    const storedProfilePic = localStorage.getItem("profilePic");
 
+    if (storedUsername) setUsername(storedUsername);
+    if (storedProfilePic) setProfilePic(storedProfilePic);
 
+    // Scroll effect
     const nav = document.querySelector(".navbar");
     if (!nav) return;
-
-    const handleScroll = () => {
-      nav.classList.toggle("scrolled", window.scrollY > 20);
-    };
-
+    const handleScroll = () => nav.classList.toggle("scrolled", window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
-    handleScroll(); // run once on load
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    localStorage.removeItem("username");
+    localStorage.removeItem("token");
+    localStorage.removeItem("profilePic");
+    window.location.href = "/login";
+  };
 
   return (
     <>
       {/* TOP NAV */}
       <nav className={`navbar ${hideNavbar ? "nav-hidden" : ""}`}>
         <div className="nav-left">
-          <img
-            src="/assets/dog (2).png"
-            alt="BreedLy Logo"
-            className="logo-img"
-          />
+          <img src="/assets/dog (2).png" alt="BreedLy Logo" className="logo-img" />
           <div className="logo-text">
             <h1>BreedLy 🐾</h1>
             <span>Know About Paws</span>
@@ -64,90 +61,85 @@ export default function Navbar() {
         </div>
 
         <ul className="nav-center">
-          <li>
-            <Link href="/">Home</Link>
-          </li>
-          <li>
-            <Link href="/breed-selector">Breed Selector</Link>
-          </li>
-          <li>
-            <Link href="/breeds">Breeds</Link>
-          </li>
-          {/*<li><Link href="/blog">Guides</Link></li>*/}
-          <li>
-            <Link href="/health-guide">Health Guide</Link>
-          </li>
-          <li>
-            <Link href="/food-guide">Food Guide</Link>
-          </li>
-          <li>
-            <Link href="/my-dog">My Dog</Link>
-          </li>
-          <a href="/dashboard" className="ml-4 bg-purple-500 text-white px-4 py-2 rounded">
-  👤 My Breedly
-</a>
-
-
+          <li><Link href="/">Home</Link></li>
+          <li><Link href="/breed-selector">Breed Selector</Link></li>
+          <li><Link href="/breeds">Breeds</Link></li>
+          <li><Link href="/health-guide">Health Guide</Link></li>
+          <li><Link href="/food-guide">Food Guide</Link></li>
+          <li><Link href="/my-dog">My Dog</Link></li>
         </ul>
 
-        <div className="nav-right">
-          <Link href="/login" className="btn-primary">
-            🐶 Register
-          </Link>
+        <div className="nav-right flex items-center gap-4">
+          {username ? (
+            <>
+              {/* Profile Pic */}
+              {profilePic ? (
+                <img
+                  src={profilePic}
+                  alt="Profile"
+                  className="w-10 h-10 rounded-full object-cover border-2 border-gray-300"
+                />
+              ) : (
+                <div className="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center">
+                  {username[0].toUpperCase()}
+                </div>
+              )}
+
+              {/* Username */}
+              <span className="hidden md:inline-block">{username}</span>
+
+              {/* Logout */}
+              <button
+                className="btn-primary bg-red-500 hover:bg-red-600"
+                onClick={handleLogout}
+              >
+                Logout
+              </button>
+            </>
+          ) : (
+            <Link href="/login" className="btn-primary">
+              🐶 Register
+            </Link>
+          )}
         </div>
       </nav>
 
       {/* MOBILE BOTTOM NAV */}
-      {/*<div className={`bottom-nav ${hideNavbar ? "nav-hidden" : ""}`}>
-        <NavItem href="/" label="Home" icon="home-icon(1)" pathname={pathname} />
-        <NavItem href="/breed-selector" label="Select" icon="quiz-icon(1)" pathname={pathname} />
-        <NavItem href="/breeds" label="Breeds" icon="breed-icon(1)" pathname={pathname} />
-        <NavItem href="/my-dog" label="My Dog" icon="paw-icon(1)" pathname={pathname} />
-        <NavItem href="/login" label="Profile" icon="login-icon(1)" pathname={pathname} />
-      </div>*/}
       <div className={`bottom-navbar ${hideNavbar ? "nav-hidden" : ""}`}>
         <div className="button-container">
           <Link href="/" className="button">
-            <img
-              src="/assets/icons/home-icon(1).png"
-              alt="Home"
-              className="icon"
-            />
+            <img src="/assets/icons/home-icon(1).png" alt="Home" className="icon" />
           </Link>
           <Link href="/breed-selector" className="button">
-            <img
-              src="/assets/icons/quiz-icon(1).png"
-              alt="Quiz"
-              className="icon"
-            />
+            <img src="/assets/icons/quiz-icon(1).png" alt="Quiz" className="icon" />
           </Link>
           <Link href="/breeds" className="button">
-           <img
-              src="/assets/icons/breed-icon(1).png"
-              alt="Breeds"
-              className="icon"
-            />
+            <img src="/assets/icons/breed-icon(1).png" alt="Breeds" className="icon" />
+          </Link>
+          <Link href="/my-dog" className="button">
+            <img src="/assets/icons/paw-icon(1).png" alt="My Dog" className="icon" />
           </Link>
 
-          <Link href="/my-dog" className="button">
-            <img
-              src="/assets/icons/paw-icon(1).png"
-              alt="My DOg"
-              className="icon"
-            />
-          </Link>
-          <Link href="/login" className="button">
-            <img
-              src="/assets/icons/login-icon(1).png"
-              alt="Login"
-              className="icon"
-            />
-          </Link>
+          {/* Mobile login/logout */}
+          {username ? (
+            <button
+              className="button"
+              onClick={handleLogout}
+              style={{ background: "transparent", border: "none" }}
+            >
+              <img src={profilePic || "/assets/icons/logout.png"} alt="Logout" className="icon rounded-full" />
+            </button>
+          ) : (
+            <Link href="/login" className="button">
+              <img src="/assets/icons/login-icon(1).png" alt="Login" className="icon" />
+            </Link>
+          )}
         </div>
       </div>
     </>
   );
 }
+
 
 function NavItem({ href, label, icon, pathname }) {
   return (

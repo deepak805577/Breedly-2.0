@@ -1,6 +1,5 @@
 "use client";
 import { supabase } from '@/lib/supabase';  // ADD THIS LINE
-
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import "./login.css";
@@ -41,13 +40,12 @@ export default function LoginPage() {
 
     // Your existing localStorage logic (unchanged)
     localStorage.setItem("token", data.session.access_token);
-    localStorage.setItem("username", data.user.email.split('@')[0]);
-
+       localStorage.setItem("username", data.user.email.split('@')[0]);
     const hasDog = localStorage.getItem("dogProfile");
     if (!hasDog) {
-      router.push("/my-dog/add");
+      router.push("/");
     } else {
-      router.push("/dashboard");  // Changed to BreedLy dashboard
+     
     }
   } catch (err) {
     console.error(err);

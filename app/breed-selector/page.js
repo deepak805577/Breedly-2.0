@@ -3,6 +3,7 @@
 import './breed-selector.css';
 import { useState } from 'react';
 import { useEffect } from "react";
+import ProtectedRoute from "../components/ProtectedRoute";
 import { useRouter } from "next/navigation";
 import Confetti from 'react-confetti'; // npm install react-confetti
 const questions = [
@@ -286,6 +287,7 @@ useEffect(() => {
   };
 
   return (
+        <ProtectedRoute>
     <div className="quiz-page">
       {finished && <Confetti />}
       {/* Header */}
@@ -343,5 +345,6 @@ useEffect(() => {
         </div>
       </section>
     </div>
+    </ProtectedRoute>
   );
 }

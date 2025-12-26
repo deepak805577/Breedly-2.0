@@ -1,5 +1,5 @@
 "use client";
-
+import ProtectedRoute from "../components/ProtectedRoute";
 import "./breeds.css";
 import { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
@@ -75,6 +75,7 @@ export default function BreedsPage() {
   };
 
   return (
+    <ProtectedRoute>
     <div className="breeds-page">
       <header className="breeds-header">
         <h1>🐾 Browse Dog Breeds</h1>
@@ -209,5 +210,6 @@ export default function BreedsPage() {
         )}
       </div>
     </div>
+    </ProtectedRoute>
   );
 }

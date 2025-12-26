@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import "./my-dog.css";
+import ProtectedRoute from "../components/ProtectedRoute";
 import { breedCards } from "@/app/data/breed";
 
 export default function MyDogPage() {
@@ -68,6 +69,7 @@ export default function MyDogPage() {
   };
 
   return (
+     <ProtectedRoute>
     <main className="my-dog-page">
       <header className="my-dog-header">
         <h1>🐾 My Dogs</h1>
@@ -279,5 +281,6 @@ export default function MyDogPage() {
         </>
       )}
     </main>
+     </ProtectedRoute>
   );
 }
