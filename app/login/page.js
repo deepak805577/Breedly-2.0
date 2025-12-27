@@ -25,34 +25,52 @@ export default function LoginPage() {
   };
 
   /* ---------------- LOGIN ---------------- */
-  const handleLogin = async (e) => {
+const handleLogin = async (e) => {
   e.preventDefault();
+
   try {
     const { data, error } = await supabase.auth.signInWithPassword({
       email: loginData.email,
       password: loginData.password,
     });
 
-    if (error) {
-      alert(error.message);
-      return;
+if (error) throw error;
+
+// create profile if not exists
+await supabase.from("profiles").upsert({
+  id: data.user.id,
+  username: data.user.email.split("@")[0],
+});
+
+    // ✅ KEEP your existing localStorage logic
+    localStorage.setItem("token", data.session.access_token);
+    localStorage.setItem(
+      "username",
+      data.user.email.split("@")[0]
+    );
+
+    // 🔁 Redirect logic (NEW but SAFE)
+    const redirectAfterLogin =
+      sessionStorage.getItem("redirectAfterLogin");
+
+    sessionStorage.removeItem("redirectAfterLogin");
+
+    // 🧠 Your existing dog logic still works
+    const hasDog = localStorage.getItem("dogProfile");
+
+    if (redirectAfterLogin) {
+      router.replace(redirectAfterLogin);
+    } else if (!hasDog) {
+      router.replace("/");
+    } else {
+      router.replace("/");
     }
 
-    // Your existing localStorage logic (unchanged)
-    localStorage.setItem("token", data.session.access_token);
-       localStorage.setItem("username", data.user.email.split('@')[0]);
-    const hasDog = localStorage.getItem("dogProfile");
-    if (!hasDog) {
-      router.push("/");
-    } else {
-     
-    }
   } catch (err) {
     console.error(err);
     alert("Login failed");
   }
 };
-
 
   /* ---------------- REGISTER ---------------- */
   const handleRegister = async (e) => {

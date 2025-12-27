@@ -1,0 +1,212 @@
+/* ===== OVERLAY ===== */
+.avatar-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+/* ===== MODAL ===== */
+.avatar-modal {
+  background: #fff;
+  width: 92%;
+  height: 100%;
+  max-width: 480px;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+}
+
+/* ===== HEADER ===== */
+.avatar-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid #e5e7eb;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.avatar-header h2 {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.avatar-header button {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* ===== USER ===== */
+.avatar-user {
+  display: flex;
+  gap: 14px;
+  padding: 16px 20px;
+  background: #f9fafb;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.avatar-user-circle {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #e5e7eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.avatar-user-name {
+  font-weight: 500;
+}
+
+.avatar-user-email {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+/* ===== BODY ===== */
+.avatar-body {
+  padding: 20px;
+}
+
+/* ===== UPLOAD ===== */
+.avatar-upload {
+  border: 2px dashed #d1d5db;
+  border-radius: 14px;
+  padding: 40px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.avatar-upload span {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+/* ===== PREVIEW ===== */
+.avatar-preview-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.avatar-preview {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid #000;
+}
+
+.avatar-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.avatar-preview-text {
+  font-size: 12px;
+  color: #6b7280;
+  margin-top: 6px;
+}
+
+/* ===== CROPPER ===== */
+.avatar-cropper {
+  position: relative;
+  width: 100%;
+  height: 260px;
+  background: #000;
+  border-radius: 14px;
+  overflow: hidden;
+}
+/* ===========================
+   🔵 CIRCULAR CROP MASK
+   =========================== */
+
+/* Dark overlay */
+.reactEasyCrop_Container::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: 2;
+}
+
+/* Circular transparent hole */
+.reactEasyCrop_CropArea {
+  border-radius: 50% !important;
+  box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.55);
+  border: 2px solid #fff;
+}
+.reactEasyCrop_CropArea {
+  border-radius: 50% !important;
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  box-shadow:
+    0 0 0 9999px rgba(0, 0, 0, 0.55),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.4);
+}
+
+
+/* ===== ZOOM ===== */
+.avatar-zoom {
+  margin-top: 14px;
+}
+
+.avatar-zoom label {
+  font-size: 14px;
+}
+
+.avatar-zoom input {
+  width: 100%;
+}
+
+/* ===== ACTIONS ===== */
+.avatar-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.btn-outline {
+  flex: 1;
+  border: 1px solid #d1d5db;
+  padding: 10px;
+  border-radius: 10px;
+  background: none;
+  cursor: pointer;
+}
+
+.btn-primaryy {
+  flex: 1;
+  background: #000;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.btn-primaryy:disabled {
+  opacity: 0.5;
+}
+
+/* ===== LOGOUT ===== */
+.btn-logout {
+  width: 100%;
+  margin-top: 14px;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #ef4444;
+  color: #ef4444;
+  background: none;
+  cursor: pointer;
+}

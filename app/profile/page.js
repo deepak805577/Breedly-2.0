@@ -1,105 +1,78 @@
 "use client";
-import { supabase } from "@/lib/supabase";
-import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+
+import { useState } from "react";
+import { useAuth } from "@/app/hooks/useAuth";
+import { uploadAvatar } from "@/lib/uploadAvatar";
 
 export default function ProfilePage() {
-  const router = useRouter();
-  const [user, setUser] = useState(null);
-  const [profilePic, setProfilePic] = useState("");
+  const { user, profile, loading } = useAuth();
+  const [preview, setPreview] = useState(null);
   const [uploading, setUploading] = useState(false);
 
-  // Load user info from Supabase
-  useEffect(() => {
-    const loadUser = async () => {
-      const { data } = await supabase.auth.getUser();
-      if (!data.user) {
-        router.push("/login"); // redirect if not logged in
-        return;
-      }
-      setUser(data.user);
+  if (loading) return <p className="p-6">Loading profile...</p>;
+  if (!user) return <p className="p-6">Please login</p>;
 
-      // Get profile picture from localStorage if exists
-      const storedPic = localStorage.getItem("profilePic");
-      if (storedPic) setProfilePic(storedPic);
-    };
-    loadUser();
-  }, [router]);
-
-  // Handle profile picture upload
-  const handleUpload = async (e) => {
+  const handleFileChange = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
-    setUploading(true);
 
-    // Use user ID as filename
-    const fileName = `${user.id}.png`;
+    // 🔍 Preview before upload
+    setPreview(URL.createObjectURL(file));
 
-    const { data, error } = await supabase.storage
-      .from("profile-pics")
-      .upload(fileName, file, { upsert: true });
-
-    if (error) {
-      alert("Upload failed: " + error.message);
+    try {
+      setUploading(true);
+      await uploadAvatar(file);
+      alert("Profile picture updated ✅");
+      setPreview(null);
+    } catch (err) {
+      alert(err.message);
+    } finally {
       setUploading(false);
-      return;
     }
-
-    // Get public URL
-    const { data: urlData } = supabase.storage
-      .from("profile-pics")
-      .getPublicUrl(fileName);
-
-    setProfilePic(urlData.publicUrl);
-    localStorage.setItem("profilePic", urlData.publicUrl);
-    setUploading(false);
   };
-
-  const handleLogout = async () => {
-    await supabase.auth.signOut();
-    localStorage.removeItem("username");
-    localStorage.removeItem("token");
-    localStorage.removeItem("profilePic");
-    router.push("/login");
-  };
-
-  if (!user) return <p>Loading...</p>;
 
   return (
-    <div className="max-w-2xl mx-auto p-8">
-      <h1 className="text-4xl font-bold mb-6">My Profile</h1>
+    <div className="min-h-screen bg-[#f7f4ef] flex justify-center items-start pt-20">
+      <div className="bg-white rounded-2xl shadow-lg p-8 w-full max-w-md">
+        <h1 className="text-2xl font-bold mb-6 text-center">
+          My Profile 🐾
+        </h1>
 
-      {/* Profile Picture */}
-      <div className="mb-6">
-        <label className="block mb-2 font-semibold">Profile Picture</label>
-        {profilePic ? (
+        {/* Avatar */}
+        <div className="flex flex-col items-center gap-4">
           <img
-            src={profilePic}
-            alt="Profile"
-            className="w-32 h-32 rounded-full object-cover mb-2"
+            src={
+              preview ||
+              profile?.avatar_url ||
+              "/assets/boy.png"
+            }
+            alt="Avatar"
+            className="w-32 h-32 rounded-full object-cover border-4 border-[#e8c8a6]"
           />
-        ) : (
-          <div className="w-32 h-32 rounded-full bg-gray-300 flex items-center justify-center mb-2 text-2xl font-bold">
-            {user.email[0].toUpperCase()}
-          </div>
-        )}
-        <input type="file" accept="image/*" onChange={handleUpload} disabled={uploading} />
-        {uploading && <p>Uploading...</p>}
-      </div>
 
-      {/* User Info */}
-      <div className="mb-6">
-        <p><strong>Username:</strong> {user.email.split("@")[0]}</p>
-        <p><strong>Email:</strong> {user.email}</p>
-      </div>
+          {/* Upload Button */}
+          <label className="cursor-pointer">
+            <input
+              type="file"
+              accept="image/*"
+              hidden
+              onChange={handleFileChange}
+              disabled={uploading}
+            />
+            <span className="px-4 py-2 rounded-full bg-[#e8c8a6] hover:bg-[#ddb58f] text-sm font-semibold">
+              {uploading ? "Uploading..." : "Change Avatar"}
+            </span>
+          </label>
+        </div>
 
-      {/* Logout */}
-      <button
-        className="btn-primary bg-red-500 hover:bg-red-600"
-        onClick={handleLogout}
-      >
-        Logout
-      </button>
+        {/* Info */}
+        <div className="mt-6 text-center">
+          <p className="text-lg font-semibold">
+            {profile?.username || user.email.split("@")[0]}
+          </p>
+          <p className="text-sm text-gray-500">{user.email}</p>
+        </div>
+      </div>
     </div>
   );
 }

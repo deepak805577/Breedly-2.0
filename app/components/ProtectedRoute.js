@@ -1,26 +1,24 @@
 "use client";
 
 import { useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
+import { useAuth } from "@/app/hooks/useAuth";
 
 export default function ProtectedRoute({ children }) {
+  const { user, loading } = useAuth();
   const router = useRouter();
+  const pathname = usePathname();
 
   useEffect(() => {
-    const username = localStorage.getItem("username"); // or token
-    const redirectedOnce = sessionStorage.getItem("redirectedOnce");
-
-    if (!username && !redirectedOnce) {
-      // First-time redirect to login
-       alert("You need to login to access this page. Redirecting to Home.");
-      sessionStorage.setItem("redirectedOnce", "true");
-      router.push("/login");
-    } else if (!username && redirectedOnce) {
-         alert("You need to login to access this page. Redirecting to Home.");
-      // Subsequent attempts: redirect to Home
-      router.push("/");
+    if (!loading && !user) {
+      alert("Please login first!");
+      // Save intended page
+      sessionStorage.setItem("redirectAfterLogin", pathname);
+      router.replace("/login");
     }
-  }, [router]);
+  }, [user, loading, pathname, router]);
 
-  return <>{children}</>; // render children if logged in
+  if (loading || !user) return null;
+
+  return <>{children}</>;
 }

@@ -1057,3 +1057,36 @@ footer {
   left: 20;
 }
 }
+
+
+
+/* =========================
+   👤 NAVBAR PROFILE AVATAR
+   ========================= */
+
+.nav-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #e5e7eb;
+  border: 2px solid #b9854a;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.nav-avatar-fallback {
+  font-size: 14px;
+  font-weight: 600;
+  color: #5b4636;
+}
