@@ -6,9 +6,6 @@ import { useAuth } from "@/app/hooks/useAuth";
 import { useState } from "react";
 import ProfileAvatarModal from "@/app/components/AvatarModal";
 
-
-
-
 export default function Navbar() {
   const pathname = usePathname();
   const { user, profile, loading } = useAuth();
@@ -53,69 +50,86 @@ export default function Navbar() {
         </div>
 
         <ul className="nav-center">
-          <li><Link href="/">Home</Link></li>
-          <li><Link href="/breed-selector">Breed Selector</Link></li>
-          <li><Link href="/breeds">Breeds</Link></li>
-          <li><Link href="/health-guide">Health Guide</Link></li>
-          <li><Link href="/food-guide">Food Guide</Link></li>
-          <li><Link href="/my-dog">My Dog</Link></li>
+          <li>
+            <Link href="/">Home</Link>
+          </li>
+          <li>
+            <Link href="/breed-selector">Breed Selector</Link>
+          </li>
+          <li>
+            <Link href="/breeds">Breeds</Link>
+          </li>
+          <li>
+            <Link href="/health-guide">Health Guide</Link>
+          </li>
+          <li>
+            <Link href="/food-guide">Food Guide</Link>
+          </li>
+          <li>
+            <Link href="/my-dog">My Dog</Link>
+          </li>
         </ul>
-       <div className="nav-avatar" onClick={() => setAvatarOpen(true)}>
-  {profilePic ? (
-    <img
-  src={profilePic}
-  alt="Profile"
-  key={profilePic}
-/>
+        
+{user ? (
+  <div className="nav-avatar" onClick={() => setAvatarOpen(true)}>
+    {profilePic ? (
+      <img src={profilePic} alt="Profile" key={profilePic} />
+    ) : (
+      <span className="nav-avatar-fallback">
+        {username?.[0]?.toUpperCase() ||
+          user?.email?.[0]?.toUpperCase() ||
+          "?"}
+      </span>
+    )}
+  </div>
+) : (
+  <div className="nav-right">
+    <Link href="/login" className="btn-primary">
+      Login
+    </Link>
+  </div>
+)}
 
-  ) : (
-    <span className="nav-avatar-fallback">
-      {username?.[0]?.toUpperCase()}
-    </span>
-  )}
-</div>
 
       </nav>
       {/* AVATAR MODAL */}
-   <ProfileAvatarModal
-  open={avatarOpen}
-  onClose={() => setAvatarOpen(false)}
-  onAvatarUpdated={() => window.location.reload()}
-/>
+      <ProfileAvatarModal
+        open={avatarOpen}
+        onClose={() => setAvatarOpen(false)}
+        onAvatarUpdated={() => window.location.reload()}
+      />
 
       {/* MOBILE BOTTOM NAV */}
       <div className={`bottom-navbar ${hideNavbar ? "nav-hidden" : ""}`}>
         <div className="button-container">
           <Link href="/" className="button">
-            <img src="/assets/icons/home-icon(1).png" alt="Home" className="icon" />
+            <img
+              src="/assets/icons/home-icon(1).png"
+              alt="Home"
+              className="icon"
+            />
           </Link>
           <Link href="/breed-selector" className="button">
-            <img src="/assets/icons/quiz-icon(1).png" alt="Quiz" className="icon" />
+            <img
+              src="/assets/icons/quiz-icon(1).png"
+              alt="Quiz"
+              className="icon"
+            />
           </Link>
           <Link href="/breeds" className="button">
-            <img src="/assets/icons/breed-icon(1).png" alt="Breeds" className="icon" />
+            <img
+              src="/assets/icons/breed-icon(1).png"
+              alt="Breeds"
+              className="icon"
+            />
           </Link>
           <Link href="/my-dog" className="button">
-            <img src="/assets/icons/paw-icon(1).png" alt="My Dog" className="icon" />
+            <img
+              src="/assets/icons/paw-icon(1).png"
+              alt="My Dog"
+              className="icon"
+            />
           </Link>
-
-          {user ? (
-            <button
-              className="button"
-              onClick={handleLogout}
-              style={{ background: "transparent", border: "none" }}
-            >
-              <img
-                src={profilePic || "/assets/icons/logout.png"}
-                alt="Logout"
-                className="icon rounded-full"
-              />
-            </button>
-          ) : (
-            <Link href="/login" className="button">
-              <img src="/assets/icons/login-icon(1).png" alt="Login" className="icon" />
-            </Link>
-          )}
         </div>
       </div>
     </>

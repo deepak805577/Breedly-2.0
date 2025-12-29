@@ -245,6 +245,7 @@ export default function ProfileAvatarModal({ open, onClose }) {
         </div>
 
         <div className="profile-info">
+          
           <input
             className="profile-name"
             value={username}

@@ -143,15 +143,15 @@
   width: 100%;
   padding: 12px;
   border-radius: 12px;
-  background-color: #000;
-  color: #fff;
-  border: none;
+  background-color: white;
+  color: #b28963;
+  border: solid #b28963;
   font-weight: 600;
   cursor: pointer;
   transition: background 0.2s;
 }
 .btn-save:hover:enabled {
-  background-color: #1c1c1c;
+  background-color: #b28963;
 }
 .btn-save:disabled {
   opacity: 0.6;
@@ -163,15 +163,15 @@
   padding: 12px;
   margin-top: 12px;
   border-radius: 12px;
-  background: none;
-  border: 1px solid #ef4444;
-  color: #ef4444;
+  background: #8b6745;
+  border: none;
+  color: white;
   font-weight: 500;
   cursor: pointer;
   transition: background 0.2s, color 0.2s;
 }
 .btn-logout:hover {
-  background: #ef4444;
+  background: #b28963;
   color: #fff;
 }
 
